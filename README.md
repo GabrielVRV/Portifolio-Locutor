@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfólio de Locutor
 
-## Getting Started
+Portfólio profissional para locutor e radialista, com amostras de voz (spots, vinhetas,
+carro de som, institucionais), informações de carreira e canais de contato para orçamento.
 
-First, run the development server:
+> 🚧 Em desenvolvimento. O projeto está sendo construído por etapas, com histórico de commits
+> seguindo [Conventional Commits](https://www.conventionalcommits.org/pt-br/).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Stack
+
+- **[Next.js 16](https://nextjs.org/)** (App Router) com **React 19** e **TypeScript** em modo estrito
+- **[Tailwind CSS 4](https://tailwindcss.com/)** para estilização
+- **[Vitest](https://vitest.dev/)** + **Testing Library** para testes
+- **ESLint** + **Prettier** para qualidade e padronização de código
+- **Husky**, **lint-staged** e **commitlint** para validar cada commit
+- **GitHub Actions** para CI e **[Vercel](https://vercel.com/)** para hospedagem
+
+## Arquitetura
+
+Clean Architecture com regras de dependência entre camadas verificadas pelo ESLint.
+Detalhes em [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
+```
+src/
+├── domain/          # entidades e interfaces (portas)
+├── application/     # casos de uso
+├── infrastructure/  # implementações das portas (fontes de dados)
+├── presentation/    # componentes React
+├── main/            # composition root (injeção de dependência)
+├── shared/          # utilitários genéricos
+└── app/             # rotas do Next.js
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Como rodar
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Pré-requisitos: Node.js 24+ e pnpm 10+.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm install
+pnpm dev
+```
 
-## Learn More
+Acesse http://localhost:3000.
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Comando              | Descrição                                    |
+| -------------------- | -------------------------------------------- |
+| `pnpm dev`           | Servidor de desenvolvimento                  |
+| `pnpm build`         | Build de produção                            |
+| `pnpm lint`          | Verifica o código com ESLint                 |
+| `pnpm format`        | Formata o código com Prettier                |
+| `pnpm typecheck`     | Checagem de tipos do TypeScript              |
+| `pnpm test`          | Executa os testes                            |
+| `pnpm test:coverage` | Executa os testes com relatório de cobertura |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Padrão de commits
 
-## Deploy on Vercel
+Os commits seguem Conventional Commits e são validados automaticamente pelo commitlint:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+<tipo>(escopo opcional): descrição no imperativo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+feat: add demo reel audio player
+fix(contact): correct WhatsApp link format
+```
+
+Tipos mais usados: `feat`, `fix`, `refactor`, `test`, `docs`, `style`, `chore`, `build`, `ci`.
+
+## Licença
+
+Código disponível para fins de estudo e portfólio. O conteúdo (áudios, fotos e textos do
+locutor) é de uso exclusivo do autor e não está coberto por licença aberta.
