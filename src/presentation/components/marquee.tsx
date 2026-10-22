@@ -17,7 +17,7 @@ export function Marquee({ items, className }: MarqueeProps) {
       {items.map((item) => (
         <Fragment key={item}>
           <span className="px-6 sm:px-8">{item}</span>
-          <span aria-hidden="true" className="text-[0.6em]">
+          <span aria-hidden="true" className="text-[0.6em] text-gold">
             ✦
           </span>
         </Fragment>
