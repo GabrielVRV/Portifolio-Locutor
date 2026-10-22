@@ -18,3 +18,18 @@ class NoopObserver {
 
 vi.stubGlobal("IntersectionObserver", NoopObserver);
 vi.stubGlobal("ResizeObserver", NoopObserver);
+
+vi.stubGlobal(
+  "matchMedia",
+  (query: string): MediaQueryList =>
+    ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      addListener: () => {},
+      removeListener: () => {},
+      dispatchEvent: () => false,
+    }) as MediaQueryList,
+);

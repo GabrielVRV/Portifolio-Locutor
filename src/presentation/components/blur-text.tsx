@@ -1,7 +1,8 @@
 "use client";
 
-import { type ElementType, Fragment, useEffect, useRef, useState } from "react";
+import { type ElementType, Fragment } from "react";
 
+import { useInView } from "@/presentation/hooks/use-in-view";
 import { cn } from "@/shared/lib/cn";
 
 interface BlurTextProps {
@@ -34,26 +35,7 @@ export function BlurText({
   decorative = false,
   className,
 }: BlurTextProps) {
-  const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 },
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
+  const [ref, visible] = useInView<HTMLElement>(0.1);
 
   const words = splitIntoWords(text, by);
 
