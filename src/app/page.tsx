@@ -2,6 +2,7 @@ import { getAnnouncerProfile } from "@/main/container";
 import { DialProgress } from "@/presentation/components/effects/dial-progress";
 import { Marquee } from "@/presentation/components/marquee";
 import { TuningIntro } from "@/presentation/components/tuning-intro/tuning-intro";
+import { WaveDivider } from "@/presentation/components/wave-divider";
 import { AboutSection } from "@/presentation/sections/about-section";
 import { ContactSection } from "@/presentation/sections/contact-section";
 import { HeroSection } from "@/presentation/sections/hero-section";
@@ -21,19 +22,26 @@ export default async function HomePage() {
       <SiteHeader announcer={announcer} />
       <main>
         <HeroSection announcer={announcer} />
+        <WaveDivider className="bg-brand text-paper" />
         {announcer.services.length > 0 && (
-          <Marquee
-            items={announcer.services.map((service) => service.name)}
-            className="border-y border-line py-6 font-serif text-4xl italic sm:text-6xl"
-          />
+          <div className="relative z-10 -my-6 overflow-x-clip py-4 sm:-my-10">
+            <Marquee
+              items={announcer.services.map((service) => service.name)}
+              className="tone-ink mx-[-5%] -rotate-2 py-5 font-display text-4xl uppercase shadow-2xl shadow-ink/30 sm:text-6xl"
+            />
+          </div>
         )}
         <AboutSection announcer={announcer} />
+        <WaveDivider className="bg-paper text-ink" />
         <ServicesSection announcer={announcer} />
+        <WaveDivider className="bg-ink text-paper" />
         <StationsSection announcer={announcer} />
+        <WaveDivider className="bg-paper text-brand" />
         <ProcessSection />
+        <WaveDivider className="bg-brand text-ink" />
         <ContactSection announcer={announcer} />
       </main>
-      <SiteFooter name={announcer.name} />
+      <SiteFooter name={announcer.name} headline={announcer.headline} />
       <DialProgress />
     </>
   );
