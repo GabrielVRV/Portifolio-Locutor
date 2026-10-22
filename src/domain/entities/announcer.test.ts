@@ -10,7 +10,7 @@ const validProps: Announcer = {
   headline: "Locutor e radialista",
   tagline: "Slogan",
   bio: ["Bio"],
-  services: ["Spot comercial"],
+  services: [{ name: "Spot comercial", description: "Spots que vendem." }],
   yearsOfExperience: 20,
   photo: { src: "/images/carlos-artur.jpg", alt: "Carlos Artur" },
   whatsapp: parseWhatsAppNumber("19997355358"),

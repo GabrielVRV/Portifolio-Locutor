@@ -6,7 +6,28 @@
     "Carlos Artur é locutor e radialista com mais de 20 anos de experiência no rádio, com passagens por emissoras como Massa FM, Band FM, Rádio Cidade das Águas e Rádio Difusora.",
     "Grava spots comerciais, vinhetas, chamadas e locuções para carro de som, levando para cada trabalho a credibilidade e a energia de quem vive o rádio."
   ],
-  "services": ["Carro de som", "Spot comercial", "Vinheta", "Chamada de rádio", "Locução"],
+  "services": [
+    {
+      "name": "Carro de som",
+      "description": "Chamadas de rua com voz potente e clara para promoções, inaugurações, eventos e avisos."
+    },
+    {
+      "name": "Spot comercial",
+      "description": "Spots para rádio, internet e redes sociais que fazem o cliente lembrar do seu negócio."
+    },
+    {
+      "name": "Vinheta",
+      "description": "Vinhetas e assinaturas de marca para rádios, programas, podcasts e canais."
+    },
+    {
+      "name": "Chamada de rádio",
+      "description": "Chamadas de programação e promoções com a linguagem e o ritmo do rádio."
+    },
+    {
+      "name": "Locução",
+      "description": "Locução para eventos, vídeos institucionais e apresentações."
+    }
+  ],
   "yearsOfExperience": 20,
   "photo": {
     "src": "/images/carlos-artur.jpg",
@@ -14,13 +35,27 @@
   },
   "whatsapp": "19997355358",
   "socialLinks": [
-    { "network": "instagram", "url": "https://www.instagram.com/carlosarturlocutor/" },
-    { "network": "facebook", "url": "https://www.facebook.com/carlosarturlocutor" }
+    {
+      "network": "instagram",
+      "url": "https://www.instagram.com/carlosarturlocutor/"
+    },
+    {
+      "network": "facebook",
+      "url": "https://www.facebook.com/carlosarturlocutor"
+    }
   ],
   "experiences": [
-    { "station": "Massa FM" },
-    { "station": "Band FM" },
-    { "station": "Rádio Cidade das Águas" },
-    { "station": "Rádio Difusora" }
+    {
+      "station": "Massa FM"
+    },
+    {
+      "station": "Band FM"
+    },
+    {
+      "station": "Rádio Cidade das Águas"
+    },
+    {
+      "station": "Rádio Difusora"
+    }
   ]
 }

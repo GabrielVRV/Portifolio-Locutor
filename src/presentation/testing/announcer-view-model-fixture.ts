@@ -6,7 +6,11 @@ export const announcerViewModelFixture: AnnouncerViewModel = {
   headline: "Locutor e radialista",
   tagline: "A voz que faz a cidade parar para ouvir.",
   bio: ["Bio"],
-  services: ["Carro de som", "Spot comercial", "Vinheta"],
+  services: [
+    { name: "Carro de som", description: "Chamadas de rua." },
+    { name: "Spot comercial", description: "Spots que vendem." },
+    { name: "Vinheta", description: "Assinaturas de marca." },
+  ],
   experienceLabel: "+20 anos no rádio",
   photo: { src: "/images/carlos-artur.jpg", alt: "Carlos Artur no estúdio" },
   whatsapp: { href: "https://wa.me/5519997355358", display: "(19) 99735-5358" },

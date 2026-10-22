@@ -1,5 +1,6 @@
 import type { Announcer, Photo } from "@/domain/entities/announcer";
 import type { RadioExperience } from "@/domain/entities/radio-experience";
+import type { ServiceOffering } from "@/domain/value-objects/service-offering";
 import type { SocialNetwork } from "@/domain/value-objects/social-link";
 import { buildWhatsAppLink, formatWhatsAppNumber } from "@/domain/value-objects/whatsapp-number";
 
@@ -31,7 +32,7 @@ export interface AnnouncerViewModel {
   readonly headline: string;
   readonly tagline: string;
   readonly bio: readonly string[];
-  readonly services: readonly string[];
+  readonly services: readonly ServiceOffering[];
   readonly experienceLabel: string;
   readonly photo: Photo;
   readonly whatsapp: { readonly href: string; readonly display: string };

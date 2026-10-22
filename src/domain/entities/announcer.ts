@@ -1,4 +1,5 @@
 import { DomainValidationError } from "@/domain/errors/domain-validation-error";
+import type { ServiceOffering } from "@/domain/value-objects/service-offering";
 import type { SocialLink } from "@/domain/value-objects/social-link";
 import type { WhatsAppNumber } from "@/domain/value-objects/whatsapp-number";
 
@@ -17,7 +18,7 @@ export interface Announcer {
   readonly headline: string;
   readonly tagline: string;
   readonly bio: readonly string[];
-  readonly services: readonly string[];
+  readonly services: readonly ServiceOffering[];
   readonly yearsOfExperience: number;
   readonly location?: string;
   readonly photo: Photo;

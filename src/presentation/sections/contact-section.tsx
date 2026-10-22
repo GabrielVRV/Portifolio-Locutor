@@ -9,7 +9,7 @@ interface ContactSectionProps {
 
 export function ContactSection({ announcer }: ContactSectionProps) {
   const services = new Intl.ListFormat("pt-BR", { type: "conjunction" })
-    .format(announcer.services)
+    .format(announcer.services.map((service) => service.name))
     .toLowerCase();
 
   return (

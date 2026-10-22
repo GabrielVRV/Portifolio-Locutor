@@ -17,7 +17,7 @@ export default async function HomePage() {
         <HeroSection announcer={announcer} />
         {announcer.services.length > 0 && (
           <Marquee
-            items={announcer.services}
+            items={announcer.services.map((service) => service.name)}
             className="-rotate-2 border-y-2 border-background bg-signal py-4 font-display text-2xl font-black text-background uppercase sm:text-4xl"
           />
         )}
