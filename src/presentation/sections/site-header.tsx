@@ -24,7 +24,7 @@ export function SiteHeader({ announcer }: SiteHeaderProps) {
           className="flex items-center gap-2"
         >
           <BrandMark className="size-9 text-paper" />
-          <span className="font-display text-xl tracking-wide uppercase">{announcer.name}</span>
+          <span className="font-display text-xl tracking-[0.06em] uppercase">{announcer.name}</span>
         </a>
 
         <nav aria-label="Principal" className="hidden md:block">

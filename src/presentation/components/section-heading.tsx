@@ -41,7 +41,7 @@ export function SectionHeading({
       </p>
       <h2
         id={id}
-        className="with-markers mt-5 font-display text-5xl leading-[0.95] text-balance uppercase sm:text-7xl"
+        className="with-markers mt-5 font-display text-5xl leading-[1.05] tracking-[0.02em] text-balance uppercase sm:text-7xl"
       >
         {children}
       </h2>

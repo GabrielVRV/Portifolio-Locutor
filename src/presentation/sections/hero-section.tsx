@@ -8,7 +8,6 @@ import { OnAirBadge } from "@/presentation/components/on-air-badge";
 import { Portrait } from "@/presentation/components/portrait";
 import { RotatingBadge } from "@/presentation/components/rotating-badge";
 import { SocialIcon } from "@/presentation/components/social-icon";
-import { Waveform } from "@/presentation/components/waveform";
 import type { AnnouncerViewModel } from "@/presentation/view-models/announcer-view-model";
 
 interface HeroSectionProps {
@@ -37,7 +36,7 @@ export function HeroSection({ announcer }: HeroSectionProps) {
 
           <h1
             id="hero-title"
-            className="mt-6 font-display text-[clamp(4.5rem,13vw,10.5rem)] leading-[0.86] uppercase"
+            className="mt-6 font-display text-[clamp(4.5rem,13vw,10.5rem)] leading-[0.98] tracking-[0.03em] uppercase"
           >
             <span className="sr-only">{announcer.name}</span>
             <BlurText decorative as="span" by="letters" text={firstName} className="block" />
@@ -100,16 +99,6 @@ export function HeroSection({ announcer }: HeroSectionProps) {
 
         <Reveal delay={300} className="mx-auto w-full max-w-sm sm:max-w-md lg:max-w-lg">
           <Portrait portrait={announcer.portrait}>
-            <div className="absolute top-[30%] -left-2 rounded-2xl bg-ink px-4 py-3 text-paper shadow-2xl shadow-ink/30 [--float-rotate:-4deg] motion-safe:animate-float sm:-left-8">
-              <span className="block text-[10px] font-extrabold tracking-[0.2em] text-brand uppercase">
-                Experiência
-              </span>
-              <span className="mt-1 flex items-center gap-3">
-                <span className="font-display text-2xl uppercase">{announcer.experienceLabel}</span>
-                <Waveform className="h-6 text-brand" />
-              </span>
-            </div>
-
             <RotatingBadge
               text={`${announcer.headline} • ${announcer.name} • `}
               className="absolute top-0 -left-2 size-24 text-ink sm:-left-4 sm:size-32"
