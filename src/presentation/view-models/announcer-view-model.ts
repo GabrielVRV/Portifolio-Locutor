@@ -17,6 +17,11 @@ export interface SocialLinkViewModel {
   readonly url: string;
 }
 
+export interface ServiceViewModel extends ServiceOffering {
+  /** WhatsApp link asking for a quote on this specific service. */
+  readonly quoteHref: string;
+}
+
 export interface StationViewModel {
   readonly name: string;
   readonly current: boolean;
@@ -32,7 +37,8 @@ export interface AnnouncerViewModel {
   readonly headline: string;
   readonly tagline: string;
   readonly bio: readonly string[];
-  readonly services: readonly ServiceOffering[];
+  readonly services: readonly ServiceViewModel[];
+  readonly yearsOfExperience: number;
   readonly experienceLabel: string;
   readonly photo: Photo;
   readonly whatsapp: { readonly href: string; readonly display: string };
@@ -50,7 +56,14 @@ export function toAnnouncerViewModel(announcer: Announcer): AnnouncerViewModel {
     headline: announcer.headline,
     tagline: announcer.tagline,
     bio: announcer.bio,
-    services: announcer.services,
+    services: announcer.services.map((service) => ({
+      ...service,
+      quoteHref: buildWhatsAppLink(
+        announcer.whatsapp,
+        `Olá, ${firstName}! Vim pelo seu site e gostaria de um orçamento de ${service.name.toLowerCase()}.`,
+      ),
+    })),
+    yearsOfExperience: years,
     experienceLabel: `+${years} ${years === 1 ? "ano" : "anos"} no rádio`,
     photo: announcer.photo,
     whatsapp: {

@@ -31,6 +31,15 @@ describe("toAnnouncerViewModel", () => {
     );
   });
 
+  it("builds a quote link for each service", () => {
+    const [service] = toAnnouncerViewModel(announcer()).services;
+
+    expect(service?.name).toBe("Spot comercial");
+    expect(decodeURIComponent(service?.quoteHref.replaceAll("+", " ") ?? "")).toBe(
+      "https://wa.me/5519997355358?text=Olá, Carlos! Vim pelo seu site e gostaria de um orçamento de spot comercial.",
+    );
+  });
+
   it.each([
     [20, "+20 anos no rádio"],
     [1, "+1 ano no rádio"],
