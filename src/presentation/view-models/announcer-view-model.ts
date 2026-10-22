@@ -1,4 +1,5 @@
 import type { Announcer, Photo } from "@/domain/entities/announcer";
+import type { RadioExperience } from "@/domain/entities/radio-experience";
 import type { SocialNetwork } from "@/domain/value-objects/social-link";
 import { buildWhatsAppLink, formatWhatsAppNumber } from "@/domain/value-objects/whatsapp-number";
 
@@ -15,6 +16,13 @@ export interface SocialLinkViewModel {
   readonly url: string;
 }
 
+export interface StationViewModel {
+  readonly name: string;
+  readonly current: boolean;
+  /** e.g. "2010–2018", "Desde 2019" or undefined when unknown. */
+  readonly period?: string;
+}
+
 /**
  * Plain, serializable data the UI needs to render the announcer.
  */
@@ -23,11 +31,12 @@ export interface AnnouncerViewModel {
   readonly headline: string;
   readonly tagline: string;
   readonly bio: readonly string[];
+  readonly services: readonly string[];
   readonly experienceLabel: string;
   readonly photo: Photo;
   readonly whatsapp: { readonly href: string; readonly display: string };
   readonly socialLinks: readonly SocialLinkViewModel[];
-  readonly stations: readonly string[];
+  readonly stations: readonly StationViewModel[];
 }
 
 export function toAnnouncerViewModel(announcer: Announcer): AnnouncerViewModel {
@@ -40,6 +49,7 @@ export function toAnnouncerViewModel(announcer: Announcer): AnnouncerViewModel {
     headline: announcer.headline,
     tagline: announcer.tagline,
     bio: announcer.bio,
+    services: announcer.services,
     experienceLabel: `+${years} ${years === 1 ? "ano" : "anos"} no rádio`,
     photo: announcer.photo,
     whatsapp: {
@@ -50,6 +60,22 @@ export function toAnnouncerViewModel(announcer: Announcer): AnnouncerViewModel {
       ...link,
       label: SOCIAL_NETWORK_LABELS[link.network],
     })),
-    stations: announcer.experiences.map((experience) => experience.station),
+    stations: announcer.experiences.map(toStationViewModel),
   };
+}
+
+function toStationViewModel({
+  station,
+  current,
+  startYear,
+  endYear,
+}: RadioExperience): StationViewModel {
+  return { name: station, current, period: formatPeriod(current, startYear, endYear) };
+}
+
+function formatPeriod(current: boolean, startYear?: number, endYear?: number): string | undefined {
+  if (current) return startYear ? `Desde ${startYear}` : "Atualmente";
+  if (startYear && endYear)
+    return startYear === endYear ? `${startYear}` : `${startYear}–${endYear}`;
+  return startYear?.toString() ?? endYear?.toString();
 }

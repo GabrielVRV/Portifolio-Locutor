@@ -12,6 +12,7 @@ const announcer = (overrides: Partial<Announcer> = {}) =>
     headline: "Locutor e radialista",
     tagline: "A voz que faz a cidade parar para ouvir.",
     bio: ["Bio"],
+    services: ["Spot comercial"],
     yearsOfExperience: 20,
     photo: { src: "/images/carlos-artur.jpg", alt: "Carlos Artur" },
     whatsapp: parseWhatsAppNumber("19997355358"),
@@ -47,6 +48,21 @@ describe("toAnnouncerViewModel", () => {
         url: "https://www.instagram.com/carlosarturlocutor/",
       },
     ]);
-    expect(viewModel.stations).toEqual(["Band FM"]);
+    expect(viewModel.stations).toEqual([{ name: "Band FM", current: false, period: undefined }]);
+  });
+
+  it.each([
+    [{ station: "A", startYear: 2010, endYear: 2018 }, "2010–2018"],
+    [{ station: "A", startYear: 2015, endYear: 2015 }, "2015"],
+    [{ station: "A", startYear: 2019, current: true }, "Desde 2019"],
+    [{ station: "A", current: true }, "Atualmente"],
+    [{ station: "A", endYear: 2005 }, "2005"],
+    [{ station: "A" }, undefined],
+  ])("formats the period of %o as %s", (experience, period) => {
+    const viewModel = toAnnouncerViewModel(
+      announcer({ experiences: [createRadioExperience(experience)] }),
+    );
+
+    expect(viewModel.stations[0]?.period).toBe(period);
   });
 });
