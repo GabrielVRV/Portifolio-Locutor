@@ -14,7 +14,7 @@ export function OnAirBadge({ children = "No ar", className }: OnAirBadgeProps) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-2.5 rounded-full border border-line bg-surface/70 px-4 py-1.5 font-mono text-[11px] tracking-[0.2em] text-foreground uppercase backdrop-blur",
+        "inline-flex items-center gap-2.5 rounded-full bg-ink px-4 py-2 text-[11px] font-extrabold tracking-[0.2em] text-paper uppercase",
         className,
       )}
     >

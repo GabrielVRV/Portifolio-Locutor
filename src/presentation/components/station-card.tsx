@@ -1,3 +1,4 @@
+import { Bolt } from "@/presentation/components/bolt";
 import type { StationViewModel } from "@/presentation/view-models/announcer-view-model";
 import { cn } from "@/shared/lib/cn";
 
@@ -7,9 +8,9 @@ import { cn } from "@/shared/lib/cn";
  */
 
 const STATION_THEMES = {
-  gold: "bg-linear-to-br from-gold-light via-gold to-gold-deep text-background",
-  dark: "bg-surface-raised text-foreground ring-1 ring-inset ring-line",
-  cream: "bg-foreground text-background",
+  brand: "bg-brand text-ink",
+  ink: "bg-ink text-paper",
+  paper: "bg-white text-ink ring-2 ring-inset ring-ink",
 } as const;
 
 export type StationCardTheme = keyof typeof STATION_THEMES;
@@ -24,11 +25,14 @@ interface StationCardProps {
 export function StationCard({ station, theme }: StationCardProps) {
   return (
     <div className={cn("flex size-full flex-col justify-between p-[9cqh]", STATION_THEMES[theme])}>
-      <div className="flex items-center justify-between gap-[4cqh] font-mono text-[6cqh] tracking-[0.18em] uppercase">
-        <span className="opacity-70">Rádio</span>
+      <div className="flex items-center justify-between gap-[4cqh] text-[6cqh] font-extrabold tracking-[0.18em] uppercase">
+        <span className="flex items-center gap-[2cqh]">
+          <Bolt className="h-[8cqh] w-[4cqh]" />
+          Rádio
+        </span>
         {station.current ? (
-          <span className="flex items-center gap-[2.5cqh] rounded-full bg-background px-[4cqh] py-[1.5cqh] text-foreground">
-            <span className="size-[3cqh] rounded-full bg-on-air" />
+          <span className="flex items-center gap-[2.5cqh] rounded-full bg-on-air px-[4cqh] py-[1.5cqh] text-white">
+            <span className="size-[3cqh] rounded-full bg-white" />
             No ar hoje
           </span>
         ) : (
@@ -41,12 +45,13 @@ export function StationCard({ station, theme }: StationCardProps) {
         className="h-[9cqh] opacity-40"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(90deg, currentColor 0 1.5px, transparent 1.5px 4cqh)",
+            "repeating-linear-gradient(90deg, currentColor 0 2px, transparent 2px 4cqh)",
           maskImage: "linear-gradient(to top, #000 40%, transparent)",
         }}
       />
 
-      <p className="line-clamp-2 font-serif text-[19cqh] leading-[0.95] tracking-tight">
+      {/* Roomy line height: tight lines clip the accents of capitals (Á) */}
+      <p className="line-clamp-2 pt-[2cqh] font-display text-[16cqh] leading-[1.1] uppercase">
         {station.name}
       </p>
     </div>

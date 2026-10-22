@@ -44,15 +44,15 @@ export function DialProgress() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed bottom-5 left-1/2 z-40 hidden w-[min(560px,56vw)] -translate-x-1/2 items-center gap-4 rounded-full border border-line bg-background/70 px-5 py-2 font-mono text-[10px] text-muted backdrop-blur-xl lg:flex"
+      className="pointer-events-none fixed bottom-5 left-1/2 z-40 hidden w-[min(560px,56vw)] -translate-x-1/2 items-center gap-4 rounded-full bg-ink/90 px-5 py-2 text-[10px] font-bold text-paper/60 tabular-nums shadow-2xl shadow-ink/30 backdrop-blur-xl lg:flex"
     >
-      <span className="text-gold">FM</span>
+      <span className="text-brand">FM</span>
       <div className="relative h-6 flex-1">
         <div
           className="absolute inset-x-0 top-0 h-2.5 opacity-60"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(90deg, var(--color-muted) 0 1px, transparent 1px 8px)",
+              "repeating-linear-gradient(90deg, rgb(250 248 242 / 0.5) 0 1px, transparent 1px 8px)",
           }}
         />
         <div className="absolute inset-x-0 bottom-0 flex justify-between leading-none">
@@ -62,11 +62,11 @@ export function DialProgress() {
         </div>
         <div
           ref={needleRef}
-          className="absolute -top-1 h-8 w-0.5 -translate-x-1/2 rounded-full bg-gold shadow-[0_0_10px_2px] shadow-gold/60"
+          className="absolute -top-1 h-8 w-0.5 -translate-x-1/2 rounded-full bg-brand shadow-[0_0_10px_2px] shadow-brand/60"
           style={{ left: 0 }}
         />
       </div>
-      <span ref={readoutRef} className="w-9 text-right text-foreground tabular-nums">
+      <span ref={readoutRef} className="w-9 text-right text-paper">
         88.0
       </span>
     </div>

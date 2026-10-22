@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { BrandMark } from "@/presentation/components/brand-mark";
 import { scrambleFrame, seededRandom } from "@/presentation/components/effects/scramble";
 import { cn } from "@/shared/lib/cn";
 import { prefersReducedMotion } from "@/shared/lib/motion";
@@ -133,7 +134,7 @@ export function TuningIntro({ name, headline }: TuningIntroProps) {
 
   return (
     <div
-      className="tuning-intro fixed inset-0 z-[100] flex flex-col bg-background px-6 py-6 transition-[clip-path] ease-[cubic-bezier(0.7,0,0.2,1)] sm:px-10"
+      className="tuning-intro tone-ink fixed inset-0 z-[100] flex flex-col px-6 py-6 transition-[clip-path] ease-[cubic-bezier(0.7,0,0.2,1)] sm:px-10"
       style={{
         clipPath: phase === "leaving" ? "inset(0 0 100% 0)" : "inset(0 0 0 0)",
         transitionDuration: `${LEAVE_MS}ms`,
@@ -145,9 +146,9 @@ export function TuningIntro({ name, headline }: TuningIntroProps) {
         className="pointer-events-none absolute inset-0 size-full opacity-35 mix-blend-screen [image-rendering:pixelated]"
       />
 
-      <div className="relative flex items-center justify-between font-mono text-xs tracking-[0.2em] text-muted uppercase">
+      <div className="relative flex items-center justify-between text-xs font-extrabold tracking-[0.2em] text-muted uppercase">
         <span>{headline}</span>
-        <span className={cn("flex items-center gap-2", tuned && "text-gold")}>
+        <span className={cn("flex items-center gap-2", tuned && "text-brand")}>
           <span
             aria-hidden="true"
             className={cn("size-2 rounded-full bg-muted", tuned && "animate-on-air bg-on-air")}
@@ -157,10 +158,16 @@ export function TuningIntro({ name, headline }: TuningIntroProps) {
       </div>
 
       <div className="relative flex flex-1 flex-col items-center justify-center gap-6 text-center">
-        <p className="font-serif text-[clamp(3.2rem,11vw,9rem)] leading-none tracking-tight">
+        <BrandMark
+          className={cn(
+            "size-20 text-paper transition-all duration-700 sm:size-24",
+            tuned ? "scale-100 opacity-100" : "scale-50 opacity-0",
+          )}
+        />
+        <p className="font-display text-[clamp(3.5rem,12vw,10rem)] leading-none uppercase">
           {tuned ? (
             <span key="tuned">
-              {firstName} <em className="text-gold-gradient pr-[0.05em]">{rest.join(" ")}</em>
+              {firstName} <span className="text-brand">{rest.join(" ")}</span>
             </span>
           ) : (
             <span key="scrambling" ref={nameRef}>
@@ -170,7 +177,7 @@ export function TuningIntro({ name, headline }: TuningIntroProps) {
         </p>
         <p
           className={cn(
-            "font-mono text-xs tracking-[0.35em] text-muted uppercase transition-opacity duration-700",
+            "text-xs font-extrabold tracking-[0.35em] text-muted uppercase transition-opacity duration-700",
             tuned ? "opacity-100" : "opacity-0",
           )}
         >
@@ -179,11 +186,11 @@ export function TuningIntro({ name, headline }: TuningIntroProps) {
       </div>
 
       <div aria-hidden="true" className="relative mx-auto mb-10 w-full max-w-3xl">
-        <div className="mb-4 flex items-baseline gap-2 font-mono">
-          <span ref={readoutRef} className="text-4xl text-gold tabular-nums sm:text-5xl">
+        <div className="mb-4 flex items-baseline gap-2">
+          <span ref={readoutRef} className="font-display text-5xl text-brand tabular-nums">
             {MIN_FREQUENCY.toFixed(1)}
           </span>
-          <span className="text-xs text-muted">MHz</span>
+          <span className="text-xs font-bold text-muted">MHz</span>
         </div>
         <div className="relative h-14 border-t border-line">
           <div
@@ -197,10 +204,10 @@ export function TuningIntro({ name, headline }: TuningIntroProps) {
             className="absolute inset-x-0 top-0 h-5"
             style={{
               backgroundImage:
-                "repeating-linear-gradient(90deg, var(--color-foreground) 0 1.5px, transparent 1.5px 20%)",
+                "repeating-linear-gradient(90deg, var(--color-paper) 0 1.5px, transparent 1.5px 20%)",
             }}
           />
-          <div className="absolute inset-x-0 bottom-0 flex justify-between font-mono text-[10px] text-muted sm:text-xs">
+          <div className="absolute inset-x-0 bottom-0 flex justify-between text-[10px] font-bold text-muted tabular-nums sm:text-xs">
             {DIAL_LABELS.map((label) => (
               <span key={label} className="w-0 text-center">
                 <span className="-ml-3 inline-block w-6">{label}</span>
@@ -209,7 +216,7 @@ export function TuningIntro({ name, headline }: TuningIntroProps) {
           </div>
           <div
             ref={needleRef}
-            className="absolute -top-3 h-12 w-0.5 -translate-x-1/2 rounded-full bg-gold shadow-[0_0_16px_3px] shadow-gold/70"
+            className="absolute -top-3 h-12 w-1 -translate-x-1/2 rounded-full bg-brand shadow-[0_0_16px_3px] shadow-brand/70"
             style={{ left: 0 }}
           />
         </div>
@@ -218,7 +225,7 @@ export function TuningIntro({ name, headline }: TuningIntroProps) {
       <button
         type="button"
         onClick={leave}
-        className="relative mx-auto cursor-pointer rounded-full border border-line px-5 py-2 font-mono text-xs tracking-[0.2em] text-muted uppercase transition-colors hover:border-gold hover:text-gold"
+        className="relative mx-auto cursor-pointer rounded-full border-2 border-line px-5 py-2 text-xs font-extrabold tracking-[0.2em] text-muted uppercase transition-colors hover:border-brand hover:text-brand"
       >
         Pular abertura
       </button>

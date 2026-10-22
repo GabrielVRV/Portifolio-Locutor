@@ -26,7 +26,7 @@ export function RotatingBadge({ text, children, className }: RotatingBadgeProps)
         <defs>
           <path id={id} d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
         </defs>
-        <text className="fill-current font-mono text-[8.5px] tracking-[0.12em] uppercase">
+        <text className="fill-current text-[8.5px] font-extrabold tracking-[0.12em] uppercase">
           <textPath href={`#${id}`} textLength="238" lengthAdjust="spacing">
             {text}
           </textPath>

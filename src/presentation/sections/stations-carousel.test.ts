@@ -19,12 +19,12 @@ describe("buildCarouselItems", () => {
     const stations = [...announcerViewModelFixture.stations, ...announcerViewModelFixture.stations];
 
     expect(buildCarouselItems(stations).map((item) => item.theme)).toEqual([
-      "gold",
-      "dark",
-      "cream",
-      "gold",
-      "dark",
-      "cream",
+      "brand",
+      "ink",
+      "paper",
+      "brand",
+      "ink",
+      "paper",
     ]);
   });
 
@@ -35,10 +35,10 @@ describe("buildCarouselItems", () => {
     ];
 
     expect(buildCarouselItems(stations).map((item) => item.theme)).toEqual([
-      "gold",
-      "dark",
-      "cream",
-      "dark",
+      "brand",
+      "ink",
+      "paper",
+      "ink",
     ]);
   });
 

@@ -15,7 +15,7 @@ export function BroadcastRings({ className }: BroadcastRingsProps) {
       {RINGS.map((delay) => (
         <span
           key={delay}
-          className="absolute inset-0 scale-50 rounded-full border border-gold/40 opacity-30 motion-safe:animate-broadcast"
+          className="absolute inset-0 scale-50 rounded-full border-2 border-brand/50 opacity-30 motion-safe:animate-broadcast"
           style={{ animationDelay: `${delay}s` }}
         />
       ))}

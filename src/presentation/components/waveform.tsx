@@ -14,9 +14,6 @@ const BARS = [
   [0.75, 150],
   [0.3, 480],
   [0.65, 90],
-  [0.45, 270],
-  [0.8, 390],
-  [0.35, 210],
 ] as const;
 
 interface WaveformProps {
@@ -24,15 +21,16 @@ interface WaveformProps {
 }
 
 /**
- * Decorative voice waveform. Static under reduced motion.
+ * Decorative voice waveform in the current text colour. Static under reduced
+ * motion.
  */
 export function Waveform({ className }: WaveformProps) {
   return (
-    <div aria-hidden="true" className={cn("flex h-10 items-center gap-[3px]", className)}>
+    <div aria-hidden="true" className={cn("flex h-8 items-center gap-[3px]", className)}>
       {BARS.map(([height, delay], index) => (
         <span
           key={index}
-          className="w-[3px] rounded-full bg-gold motion-safe:animate-waveform"
+          className="w-[3px] rounded-full bg-current motion-safe:animate-waveform"
           style={{ height: `${height * 100}%`, animationDelay: `${delay}ms` }}
         />
       ))}
