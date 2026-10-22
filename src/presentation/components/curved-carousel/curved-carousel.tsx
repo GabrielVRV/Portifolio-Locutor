@@ -71,8 +71,9 @@ export function CurvedCarousel<T>({
 
   // Null until measured: the band stays hidden so a wrong-size first paint never shows.
   const [layout, setLayout] = useState<CarouselLayout | null>(null);
-  // Which item each tile shows. It only changes when a tile wraps, out of sight.
-  const [shown, setShown] = useState<Record<number, number>>({});
+  // Which item each tile shows, keyed by tile key. It only changes when a tile
+  // wraps, out of sight.
+  const [shown, setShown] = useState<Record<string, number>>({});
 
   useEffect(() => {
     const frame = frameRef.current;
@@ -141,16 +142,24 @@ export function CurvedCarousel<T>({
           WebkitMaskImage: mask,
         }}
       >
-        {items.length > 0 &&
+        {/*
+         * Tiles mount only once measured, all together, and remount together
+         * (keyed by layout) when it changes. Their phases come from negative
+         * animation delays relative to mount time, so tiles mounted at
+         * different times would drift out of step and overlap.
+         */}
+        {layout &&
+          items.length > 0 &&
           Array.from({ length: columns }, (_, tile) => {
+            const key = `${columns}:${sweep}:${tile}`;
             // Tile `columns - 1` starts nearest the exit, so this is the order tiles come on.
             const first = columns - 1 - tile;
-            const item = items[(shown[tile] ?? first) % items.length] as T;
+            const item = items[(shown[key] ?? first) % items.length] as T;
             const content = renderItem(item);
 
             return (
               <div
-                key={tile}
+                key={key}
                 className={cn(tileClass, "absolute")}
                 style={{
                   left: `calc(50% - ${u(aspectRatio / 2)})`,
@@ -164,7 +173,7 @@ export function CurvedCarousel<T>({
                   // elapsedTime counts whole loops, missed events included.
                   const lap = Math.round(event.elapsedTime / duration);
                   const next = lap * columns + first;
-                  setShown((prev) => (prev[tile] === next ? prev : { ...prev, [tile]: next }));
+                  setShown((prev) => (prev[key] === next ? prev : { ...prev, [key]: next }));
                 }}
               >
                 {Array.from({ length: slices }, (_, strip) => {
