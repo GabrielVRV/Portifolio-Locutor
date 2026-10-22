@@ -15,6 +15,7 @@ const announcer = (overrides: Partial<Announcer> = {}) =>
     services: [{ name: "Spot comercial", description: "Spots que vendem." }],
     yearsOfExperience: 20,
     photo: { src: "/images/carlos-artur.jpg", alt: "Carlos Artur" },
+    portrait: { src: "/images/carlos-artur-recorte.webp", alt: "Carlos Artur" },
     whatsapp: parseWhatsAppNumber("19997355358"),
     socialLinks: [{ network: "instagram", url: "https://www.instagram.com/carlosarturlocutor/" }],
     experiences: [createRadioExperience({ station: "Band FM" })],

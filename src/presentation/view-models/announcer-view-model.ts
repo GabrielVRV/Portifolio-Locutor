@@ -41,6 +41,7 @@ export interface AnnouncerViewModel {
   readonly yearsOfExperience: number;
   readonly experienceLabel: string;
   readonly photo: Photo;
+  readonly portrait: Photo;
   readonly whatsapp: { readonly href: string; readonly display: string };
   readonly socialLinks: readonly SocialLinkViewModel[];
   readonly stations: readonly StationViewModel[];
@@ -66,6 +67,7 @@ export function toAnnouncerViewModel(announcer: Announcer): AnnouncerViewModel {
     yearsOfExperience: years,
     experienceLabel: `+${years} ${years === 1 ? "ano" : "anos"} no rádio`,
     photo: announcer.photo,
+    portrait: announcer.portrait,
     whatsapp: {
       href: buildWhatsAppLink(announcer.whatsapp, quoteMessage),
       display: formatWhatsAppNumber(announcer.whatsapp),

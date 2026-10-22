@@ -10,6 +10,8 @@ import { parseSource } from "./parse-source";
 
 const year = z.int().min(1900).max(2100);
 
+const photoSchema = z.object({ src: z.string().min(1), alt: z.string().min(1) });
+
 const announcerSchema = z.object({
   name: z.string(),
   headline: z.string(),
@@ -18,7 +20,8 @@ const announcerSchema = z.object({
   services: z.array(z.object({ name: z.string().min(1), description: z.string().min(1) })),
   yearsOfExperience: z.int(),
   location: z.string().optional(),
-  photo: z.object({ src: z.string().min(1), alt: z.string().min(1) }),
+  photo: photoSchema,
+  portrait: photoSchema,
   whatsapp: z.string(),
   socialLinks: z.array(z.object({ network: z.enum(SOCIAL_NETWORKS), url: z.url() })),
   experiences: z.array(

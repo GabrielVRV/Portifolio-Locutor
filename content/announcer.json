@@ -33,6 +33,10 @@
     "src": "/images/carlos-artur.jpg",
     "alt": "Carlos Artur sorrindo e fazendo sinal de positivo em um estúdio de rádio"
   },
+  "portrait": {
+    "src": "/images/carlos-artur-recorte.webp",
+    "alt": "Carlos Artur sorrindo e fazendo sinal de positivo"
+  },
   "whatsapp": "19997355358",
   "socialLinks": [
     {

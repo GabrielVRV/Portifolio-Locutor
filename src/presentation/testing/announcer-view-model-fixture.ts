@@ -14,6 +14,7 @@ export const announcerViewModelFixture: AnnouncerViewModel = {
   yearsOfExperience: 20,
   experienceLabel: "+20 anos no rádio",
   photo: { src: "/images/carlos-artur.jpg", alt: "Carlos Artur no estúdio" },
+  portrait: { src: "/images/carlos-artur-recorte.webp", alt: "Carlos Artur sorrindo" },
   whatsapp: { href: "https://wa.me/5519997355358", display: "(19) 99735-5358" },
   socialLinks: [
     {

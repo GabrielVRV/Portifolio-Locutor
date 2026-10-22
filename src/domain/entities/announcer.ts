@@ -21,7 +21,10 @@ export interface Announcer {
   readonly services: readonly ServiceOffering[];
   readonly yearsOfExperience: number;
   readonly location?: string;
+  /** Regular photo, used where a full frame is needed (e.g. link previews). */
   readonly photo: Photo;
+  /** Same person on a transparent background, for layered compositions. */
+  readonly portrait: Photo;
   readonly whatsapp: WhatsAppNumber;
   readonly socialLinks: readonly SocialLink[];
   readonly experiences: readonly RadioExperience[];

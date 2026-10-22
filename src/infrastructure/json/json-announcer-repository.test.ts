@@ -13,6 +13,7 @@ const validContent = {
   services: [{ name: "Spot comercial", description: "Spots que vendem." }],
   yearsOfExperience: 20,
   photo: { src: "/images/carlos-artur.jpg", alt: "Carlos Artur" },
+  portrait: { src: "/images/carlos-artur-recorte.webp", alt: "Carlos Artur" },
   whatsapp: "(19) 99735-5358",
   socialLinks: [{ network: "instagram", url: "https://www.instagram.com/carlosarturlocutor/" }],
   experiences: [{ station: "Band FM" }, { station: "Massa FM", startYear: 2015, current: true }],
