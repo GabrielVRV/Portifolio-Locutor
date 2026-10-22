@@ -21,6 +21,8 @@ Clean Architecture com regras de dependência entre camadas verificadas pelo ESL
 Detalhes em [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ```
+content/             # dados do portfólio (perfil e gravações) em JSON
+public/audio/        # arquivos de áudio das gravações
 src/
 ├── domain/          # entidades e interfaces (portas)
 ├── application/     # casos de uso
@@ -30,6 +32,35 @@ src/
 ├── shared/          # utilitários genéricos
 └── app/             # rotas do Next.js
 ```
+
+## Atualizando o conteúdo
+
+Todo o conteúdo fica em `content/` e é validado pelos testes: um campo errado quebra o CI
+antes de chegar ao site publicado.
+
+**Adicionar uma gravação:**
+
+1. Coloque o áudio (de preferência `.mp3`) em `public/audio/`.
+2. Adicione um item em `content/demo-reels.json`:
+
+   ```json
+   {
+     "id": "spot-supermercado-bom-preco",
+     "title": "Spot Supermercado Bom Preço",
+     "description": "Oferta de fim de semana",
+     "category": "spot-comercial",
+     "audioSrc": "/audio/spot-supermercado-bom-preco.mp3",
+     "durationInSeconds": 30,
+     "recordedAt": "2026-10-01",
+     "featured": true
+   }
+   ```
+
+   Categorias aceitas: `carro-de-som`, `spot-comercial`, `vinheta`, `chamada`,
+   `institucional` e `eventos`. Os campos `description`, `recordedAt` e `featured` são
+   opcionais.
+
+3. Rode `pnpm test` e faça o commit (`feat(content): add supermarket spot`).
 
 ## Como rodar
 
