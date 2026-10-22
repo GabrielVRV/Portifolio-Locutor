@@ -1,27 +1,32 @@
 @import "tailwindcss";
 
 /*
- * Identity: deep black stage, acid-lime "signal" as the brand highlight and a
- * small red "on air" light as the radio signature.
+ * Identity: "premium voice". Warm black, champagne gold accents, an elegant
+ * serif for display text and a mono face for FM-dial details.
  * Every text/background pair below meets WCAG AA (>= 4.5:1).
  */
 @theme {
-  --color-background: #070707;
-  --color-surface: #121212;
-  --color-surface-raised: #1a1a1a;
-  --color-foreground: #f2f2ec;
-  --color-muted: #8c8c86;
-  --color-line: rgb(255 255 255 / 0.1);
-  --color-signal: #c8f031;
+  --color-background: #0a0907;
+  --color-surface: #14120e;
+  --color-surface-raised: #1c1914;
+  --color-foreground: #f6f1e7;
+  --color-muted: #a39a86;
+  --color-line: rgb(246 241 231 / 0.1);
+  --color-gold: #e9b949;
+  --color-gold-light: #f6dc96;
+  --color-gold-deep: #b8862b;
   --color-on-air: #ff4d3d;
 
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
   --animate-on-air: on-air 1.6s ease-in-out infinite;
-  --animate-spin-slow: spin 14s linear infinite;
-  --animate-marquee: marquee 28s linear infinite;
+  --animate-spin-slow: spin 16s linear infinite;
+  --animate-marquee: marquee 40s linear infinite;
   --animate-bounce-soft: bounce-soft 2s ease-in-out infinite;
+  --animate-waveform: waveform 1.2s ease-in-out infinite;
+  --animate-broadcast: broadcast 6s ease-out infinite;
 
   @keyframes on-air {
     0%,
@@ -50,6 +55,39 @@
       transform: translateY(6px);
     }
   }
+
+  @keyframes waveform {
+    0%,
+    100% {
+      transform: scaleY(0.2);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+  }
+
+  @keyframes broadcast {
+    from {
+      transform: scale(0.2);
+      opacity: 0.9;
+    }
+    to {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+}
+
+/* Metallic gold text. A utility (not a component class) so variants work. */
+@utility text-gold-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-gold-light) 0%,
+    var(--color-gold) 45%,
+    var(--color-gold-deep) 100%
+  );
+  background-clip: text;
+  color: transparent;
 }
 
 @layer base {
@@ -63,11 +101,11 @@
   }
 
   ::selection {
-    @apply bg-signal text-background;
+    @apply bg-gold text-background;
   }
 
   :focus-visible {
-    @apply outline-2 outline-offset-4 outline-signal;
+    @apply outline-2 outline-offset-4 outline-gold;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -78,15 +116,20 @@
 }
 
 @layer components {
+  /* Film grain over the whole page. */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
   /* BlurText: segments rise from a blur once the element is visible. */
   .blur-text-segment {
     opacity: 0;
     filter: blur(12px);
     transform: translateY(-0.25em);
     transition:
-      opacity 0.6s ease-out,
-      filter 0.6s ease-out,
-      transform 0.6s ease-out;
+      opacity 0.7s ease-out,
+      filter 0.7s ease-out,
+      transform 0.7s ease-out;
   }
 
   .blur-text[data-visible="true"] .blur-text-segment {
@@ -95,23 +138,66 @@
     transform: none;
   }
 
+  /* Reveal: content fades up once it scrolls into view. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .reveal[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /*
+   * While the tuning intro plays, hold every entrance animation back. When it
+   * ends the attribute goes away and the transitions run in front of the user.
+   */
+  html[data-intro="playing"] {
+    overflow: hidden;
+
+    & .blur-text-segment,
+    & .reveal {
+      opacity: 0 !important;
+      transition: none !important;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .blur-text-segment {
+    .blur-text-segment,
+    .reveal {
       opacity: 1;
       filter: none;
       transform: none;
       transition: none;
     }
   }
+}
 
-  /*
-   * Outlined display text. The stroke is painted under a background-coloured
-   * fill, which hides the overlapping contours some fonts draw inside glyphs;
-   * only the outer half of the stroke shows, hence the doubled width.
-   */
-  .text-outline {
-    color: var(--color-background);
-    -webkit-text-stroke: 0.05em var(--color-foreground);
-    paint-order: stroke fill;
+/*
+ * Tuning intro visibility. Unlayered on purpose: it must beat the display
+ * utilities (e.g. `flex`) on the same element, which live in a layer.
+ */
+html[data-intro-seen] .tuning-intro {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tuning-intro {
+    display: none;
+  }
+}
+
+/* Without JavaScript the intro still gets out of the way on its own. */
+.tuning-intro {
+  animation: intro-fallback 0s 6s forwards;
+}
+
+@keyframes intro-fallback {
+  to {
+    visibility: hidden;
   }
 }
