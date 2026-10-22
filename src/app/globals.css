@@ -1,46 +1,53 @@
 @import "tailwindcss";
 
 /*
- * Studio identity: warm near-black like an acoustic booth, "on air" red as the
- * call-to-action color and FM dial amber as the secondary highlight.
+ * Identity: deep black stage, acid-lime "signal" as the brand highlight and a
+ * small red "on air" light as the radio signature.
  * Every text/background pair below meets WCAG AA (>= 4.5:1).
  */
 @theme {
-  --color-background: #0d0c0b;
-  --color-surface: #171514;
-  --color-surface-raised: #201d1b;
-  --color-foreground: #f5f1ec;
-  --color-muted: #a39c94;
-  --color-line: rgb(255 255 255 / 0.08);
-  --color-on-air: #f04a3e;
-  --color-on-air-strong: #c9241e;
-  --color-dial: #f2b441;
+  --color-background: #070707;
+  --color-surface: #121212;
+  --color-surface-raised: #1a1a1a;
+  --color-foreground: #f2f2ec;
+  --color-muted: #8c8c86;
+  --color-line: rgb(255 255 255 / 0.1);
+  --color-signal: #c8f031;
+  --color-on-air: #ff4d3d;
 
-  --font-sans: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-barlow-condensed), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
 
-  --animate-on-air: on-air 2s ease-in-out infinite;
-  --animate-equalizer: equalizer 1.1s ease-in-out infinite;
+  --animate-on-air: on-air 1.6s ease-in-out infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-bounce-soft: bounce-soft 2s ease-in-out infinite;
 
   @keyframes on-air {
     0%,
     100% {
       opacity: 1;
-      box-shadow: 0 0 12px 2px rgb(240 74 62 / 0.7);
+      box-shadow: 0 0 10px 2px rgb(255 77 61 / 0.75);
     }
     50% {
-      opacity: 0.55;
-      box-shadow: 0 0 4px 0 rgb(240 74 62 / 0.3);
+      opacity: 0.45;
+      box-shadow: 0 0 2px 0 rgb(255 77 61 / 0.2);
     }
   }
 
-  @keyframes equalizer {
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes bounce-soft {
     0%,
     100% {
-      transform: scaleY(0.25);
+      transform: translateY(0);
     }
     50% {
-      transform: scaleY(1);
+      transform: translateY(6px);
     }
   }
 }
@@ -56,16 +63,55 @@
   }
 
   ::selection {
-    @apply bg-on-air-strong text-white;
+    @apply bg-signal text-background;
   }
 
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-dial;
+    @apply outline-2 outline-offset-4 outline-signal;
   }
 
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
     }
+  }
+}
+
+@layer components {
+  /* BlurText: segments rise from a blur once the element is visible. */
+  .blur-text-segment {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(-0.25em);
+    transition:
+      opacity 0.6s ease-out,
+      filter 0.6s ease-out,
+      transform 0.6s ease-out;
+  }
+
+  .blur-text[data-visible="true"] .blur-text-segment {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .blur-text-segment {
+      opacity: 1;
+      filter: none;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /*
+   * Outlined display text. The stroke is painted under a background-coloured
+   * fill, which hides the overlapping contours some fonts draw inside glyphs;
+   * only the outer half of the stroke shows, hence the doubled width.
+   */
+  .text-outline {
+    color: var(--color-background);
+    -webkit-text-stroke: 0.05em var(--color-foreground);
+    paint-order: stroke fill;
   }
 }

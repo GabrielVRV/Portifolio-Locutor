@@ -1,20 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow, Barlow_Condensed } from "next/font/google";
+import { Manrope, Unbounded } from "next/font/google";
 
 import { getAnnouncerProfile } from "@/main/container";
 
 import "./globals.css";
 
-const barlow = Barlow({
-  variable: "--font-barlow",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
 });
 
-const barlowCondensed = Barlow_Condensed({
-  variable: "--font-barlow-condensed",
+// Static weights: the variable font has overlapping contours that show up in outlined text.
+const unbounded = Unbounded({
+  variable: "--font-unbounded",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["600", "800", "900"],
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -36,13 +36,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0d0c0b",
+  themeColor: "#070707",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="pt-BR" className={`${barlow.variable} ${barlowCondensed.variable}`}>
-      <body className="min-h-dvh">{children}</body>
+    <html lang="pt-BR" className={`${manrope.variable} ${unbounded.variable}`}>
+      <body className="min-h-dvh overflow-x-clip">{children}</body>
     </html>
   );
 }
