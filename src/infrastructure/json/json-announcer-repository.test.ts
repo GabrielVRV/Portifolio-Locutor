@@ -10,6 +10,7 @@ const validContent = {
   headline: "Locutor e radialista",
   tagline: "Slogan",
   bio: ["Bio"],
+  services: ["Spot comercial"],
   yearsOfExperience: 20,
   photo: { src: "/images/carlos-artur.jpg", alt: "Carlos Artur" },
   whatsapp: "(19) 99735-5358",

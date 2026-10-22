@@ -6,6 +6,7 @@
     "Carlos Artur é locutor e radialista com mais de 20 anos de experiência no rádio, com passagens por emissoras como Massa FM, Band FM, Rádio Cidade das Águas e Rádio Difusora.",
     "Grava spots comerciais, vinhetas, chamadas e locuções para carro de som, levando para cada trabalho a credibilidade e a energia de quem vive o rádio."
   ],
+  "services": ["Carro de som", "Spot comercial", "Vinheta", "Chamada de rádio", "Locução"],
   "yearsOfExperience": 20,
   "photo": {
     "src": "/images/carlos-artur.jpg",

@@ -17,6 +17,7 @@ export interface Announcer {
   readonly headline: string;
   readonly tagline: string;
   readonly bio: readonly string[];
+  readonly services: readonly string[];
   readonly yearsOfExperience: number;
   readonly location?: string;
   readonly photo: Photo;

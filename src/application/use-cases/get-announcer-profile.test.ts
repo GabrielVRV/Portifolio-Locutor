@@ -12,6 +12,7 @@ const announcer: Announcer = createAnnouncer({
   headline: "Locutor e radialista",
   tagline: "Slogan",
   bio: ["Bio"],
+  services: ["Spot comercial"],
   yearsOfExperience: 20,
   photo: { src: "/images/carlos-artur.jpg", alt: "Carlos Artur" },
   whatsapp: parseWhatsAppNumber("19997355358"),
