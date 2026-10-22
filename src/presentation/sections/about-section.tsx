@@ -1,6 +1,8 @@
 import { Bolt } from "@/presentation/components/bolt";
 import { CountUp } from "@/presentation/components/effects/count-up";
+import { PointerParallax } from "@/presentation/components/effects/pointer-parallax";
 import { Reveal } from "@/presentation/components/effects/reveal";
+import { FloatingBubble } from "@/presentation/components/floating-bubble";
 import { SectionHeading } from "@/presentation/components/section-heading";
 import type { AnnouncerViewModel } from "@/presentation/view-models/announcer-view-model";
 
@@ -30,11 +32,16 @@ export function AboutSection({ announcer }: AboutSectionProps) {
           </Reveal>
         </div>
 
-        {/* Stats as a cluster of bubbles, sized with container units */}
-        <ul className="[container-type:inline-size] relative mx-auto aspect-square w-full max-w-md">
-          <Reveal
-            as="li"
-            className="absolute top-0 left-0 grid aspect-square w-[60%] place-content-center rounded-full bg-brand text-center shadow-[0_30px_60px_-30px] shadow-ink/50"
+        {/* Stats as floating bubbles that drift with the pointer */}
+        <PointerParallax
+          as="ul"
+          className="[container-type:inline-size] relative mx-auto aspect-square w-full max-w-md"
+        >
+          <FloatingBubble
+            placement="top-0 left-0 w-[60%]"
+            className="bg-brand shadow-[0_30px_60px_-30px] shadow-ink/50"
+            depth={14}
+            floatSeconds={7}
           >
             <CountUp
               value={announcer.yearsOfExperience}
@@ -44,12 +51,14 @@ export function AboutSection({ announcer }: AboutSectionProps) {
             <span className="mt-1 block text-[3.4cqw] font-extrabold tracking-[0.2em] uppercase">
               anos no rádio
             </span>
-          </Reveal>
+          </FloatingBubble>
 
-          <Reveal
-            as="li"
-            delay={150}
-            className="tone-ink absolute top-[22%] right-0 grid aspect-square w-[42%] place-content-center rounded-full text-center"
+          <FloatingBubble
+            placement="top-[22%] right-0 w-[42%]"
+            className="tone-ink"
+            depth={-22}
+            floatSeconds={5.5}
+            delayMs={150}
           >
             <CountUp
               value={announcer.stations.length}
@@ -58,12 +67,14 @@ export function AboutSection({ announcer }: AboutSectionProps) {
             <span className="mt-1 block px-[4cqw] text-[2.8cqw] font-extrabold tracking-[0.18em] uppercase">
               rádios no currículo
             </span>
-          </Reveal>
+          </FloatingBubble>
 
-          <Reveal
-            as="li"
-            delay={300}
-            className="absolute bottom-0 left-[30%] grid aspect-square w-[40%] place-content-center rounded-full border-[3px] border-ink bg-paper text-center"
+          <FloatingBubble
+            placement="bottom-0 left-[30%] w-[40%]"
+            className="border-[3px] border-ink bg-paper"
+            depth={28}
+            floatSeconds={6.5}
+            delayMs={300}
           >
             <CountUp
               value={announcer.services.length}
@@ -72,14 +83,14 @@ export function AboutSection({ announcer }: AboutSectionProps) {
             <span className="mt-1 block px-[4cqw] text-[2.8cqw] font-extrabold tracking-[0.18em] uppercase">
               tipos de locução
             </span>
-          </Reveal>
+          </FloatingBubble>
 
           <Bolt className="absolute right-[12%] bottom-[18%] h-[14cqw] w-[7cqw] rotate-12 text-brand-deep" />
           <Bolt
             className="absolute top-[2%] right-[22%] h-[10cqw] w-[5cqw] -rotate-12 text-ink"
             delayMs={900}
           />
-        </ul>
+        </PointerParallax>
       </div>
     </section>
   );
