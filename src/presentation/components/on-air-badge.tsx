@@ -1,17 +1,20 @@
+import type { ReactNode } from "react";
+
 import { cn } from "@/shared/lib/cn";
 
 interface OnAirBadgeProps {
+  readonly children?: ReactNode;
   readonly className?: string;
 }
 
 /**
- * The studio "on air" light, the visual signature of the portfolio.
+ * A pill with the studio's blinking red "on air" light.
  */
-export function OnAirBadge({ className }: OnAirBadgeProps) {
+export function OnAirBadge({ children = "No ar", className }: OnAirBadgeProps) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-2 rounded-full border border-on-air/40 bg-background/80 px-3 py-1 font-display text-sm font-bold tracking-[0.2em] text-on-air uppercase backdrop-blur",
+        "inline-flex items-center gap-2.5 rounded-full border border-line bg-surface/70 px-4 py-1.5 text-xs font-semibold tracking-[0.2em] text-foreground uppercase backdrop-blur",
         className,
       )}
     >
@@ -19,7 +22,7 @@ export function OnAirBadge({ className }: OnAirBadgeProps) {
         aria-hidden="true"
         className="size-2 rounded-full bg-on-air motion-safe:animate-on-air"
       />
-      No ar
+      {children}
     </span>
   );
 }
