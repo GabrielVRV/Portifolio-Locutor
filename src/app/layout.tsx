@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, JetBrains_Mono, Manrope } from "next/font/google";
+import { Anton, Manrope } from "next/font/google";
 
 import { getAnnouncerProfile } from "@/main/container";
-import { CursorSpotlight } from "@/presentation/components/effects/cursor-spotlight";
 import { GrainOverlay } from "@/presentation/components/effects/grain-overlay";
 import { INTRO_BOOT_SCRIPT } from "@/presentation/components/tuning-intro/intro-boot";
 
@@ -13,17 +12,10 @@ const manrope = Manrope({
   subsets: ["latin"],
 });
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
+const anton = Anton({
+  variable: "--font-anton",
   subsets: ["latin"],
   weight: "400",
-  style: ["normal", "italic"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -45,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0a0907",
+  themeColor: "#ffd400",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -54,14 +46,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="pt-BR"
       // The intro boot script sets data attributes on <html> before hydration.
       suppressHydrationWarning
-      className={`${manrope.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
+      className={`${manrope.variable} ${anton.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: INTRO_BOOT_SCRIPT }} />
       </head>
       <body className="min-h-dvh overflow-x-clip">
         {children}
-        <CursorSpotlight />
         <GrainOverlay />
       </body>
     </html>

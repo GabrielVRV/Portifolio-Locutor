@@ -1,42 +1,41 @@
 @import "tailwindcss";
 
 /*
- * Identity: "premium voice". Warm black, champagne gold accents, an elegant
- * serif for display text and a mono face for FM-dial details.
- * Every text/background pair below meets WCAG AA (>= 4.5:1).
+ * Brand identity, taken from Carlos Artur's logo: radio yellow, ink black and
+ * paper white. Sections pick a tone (.tone-paper, .tone-ink, .tone-brand) and
+ * components read the tone's muted/line/accent colours, so the same component
+ * works on any background. Every text pair meets WCAG AA (>= 4.5:1).
  */
 @theme {
-  --color-background: #0a0907;
-  --color-surface: #14120e;
-  --color-surface-raised: #1c1914;
-  --color-foreground: #f6f1e7;
-  --color-muted: #a39a86;
-  --color-line: rgb(246 241 231 / 0.1);
-  --color-gold: #e9b949;
-  --color-gold-light: #f6dc96;
-  --color-gold-deep: #b8862b;
-  --color-on-air: #ff4d3d;
+  --color-brand: #ffd400;
+  --color-brand-deep: #f2a900;
+  --color-ink: #0b0b0b;
+  --color-ink-soft: #171717;
+  --color-paper: #faf8f2;
+  --color-on-air: #e0221a;
 
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-display: var(--font-anton), Impact, ui-sans-serif, sans-serif;
 
   --animate-on-air: on-air 1.6s ease-in-out infinite;
-  --animate-spin-slow: spin 16s linear infinite;
-  --animate-marquee: marquee 40s linear infinite;
+  --animate-spin-slow: spin 18s linear infinite;
+  --animate-marquee: marquee 32s linear infinite;
   --animate-bounce-soft: bounce-soft 2s ease-in-out infinite;
   --animate-waveform: waveform 1.2s ease-in-out infinite;
   --animate-broadcast: broadcast 6s ease-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-bolt: bolt 3.2s steps(1, end) infinite;
+  --animate-wave: wave 14s linear infinite;
 
   @keyframes on-air {
     0%,
     100% {
       opacity: 1;
-      box-shadow: 0 0 10px 2px rgb(255 77 61 / 0.75);
+      box-shadow: 0 0 10px 2px rgb(224 34 26 / 0.7);
     }
     50% {
       opacity: 0.45;
-      box-shadow: 0 0 2px 0 rgb(255 77 61 / 0.2);
+      box-shadow: 0 0 2px 0 rgb(224 34 26 / 0.2);
     }
   }
 
@@ -59,7 +58,7 @@
   @keyframes waveform {
     0%,
     100% {
-      transform: scaleY(0.2);
+      transform: scaleY(0.25);
     }
     50% {
       transform: scaleY(1);
@@ -76,36 +75,112 @@
       opacity: 0;
     }
   }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(var(--float-rotate, 0deg));
+    }
+    50% {
+      transform: translateY(-12px) rotate(var(--float-rotate, 0deg));
+    }
+  }
+
+  /* An electric flicker, like the bolts around the logo. */
+  @keyframes bolt {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    8% {
+      opacity: 0.2;
+    }
+    10% {
+      opacity: 1;
+    }
+    12% {
+      opacity: 0.4;
+    }
+    14% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes wave {
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
-/* Metallic gold text. A utility (not a component class) so variants work. */
-@utility text-gold-gradient {
-  background-image: linear-gradient(
-    100deg,
-    var(--color-gold-light) 0%,
-    var(--color-gold) 45%,
-    var(--color-gold-deep) 100%
-  );
-  background-clip: text;
-  color: transparent;
+/* Colours that depend on the section tone, resolved where they are used. */
+@theme inline {
+  --color-muted: var(--tone-muted);
+  --color-line: var(--tone-line);
+  --color-surface: var(--tone-surface);
+  --color-accent: var(--tone-accent);
+  --color-on-accent: var(--tone-on-accent);
 }
 
 @layer base {
+  :root,
+  .tone-paper {
+    --tone-muted: #55554f;
+    --tone-line: rgb(11 11 11 / 0.12);
+    --tone-surface: #ffffff;
+    --tone-accent: var(--color-ink);
+    --tone-on-accent: var(--color-brand);
+    --tone-marker: var(--color-brand);
+    --tone-on-marker: var(--color-ink);
+  }
+
+  .tone-ink {
+    --tone-muted: #a8a8a2;
+    --tone-line: rgb(255 255 255 / 0.12);
+    --tone-surface: var(--color-ink-soft);
+    --tone-accent: var(--color-brand);
+    --tone-on-accent: var(--color-ink);
+    --tone-marker: var(--color-brand);
+    --tone-on-marker: var(--color-ink);
+  }
+
+  .tone-brand {
+    --tone-muted: #4a4100;
+    --tone-line: rgb(11 11 11 / 0.15);
+    --tone-surface: #ffe14d;
+    --tone-accent: var(--color-ink);
+    --tone-on-accent: var(--color-brand);
+    --tone-marker: var(--color-ink);
+    --tone-on-marker: var(--color-brand);
+  }
+
+  .tone-paper {
+    @apply bg-paper text-ink;
+  }
+
+  .tone-ink {
+    @apply bg-ink text-paper;
+  }
+
+  .tone-brand {
+    @apply bg-brand text-ink;
+  }
+
   html {
-    color-scheme: dark;
     scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-background font-sans text-foreground antialiased;
+    @apply bg-paper font-sans text-ink antialiased;
   }
 
   ::selection {
-    @apply bg-gold text-background;
+    @apply bg-brand text-ink;
   }
 
   :focus-visible {
-    @apply outline-2 outline-offset-4 outline-gold;
+    outline: 3px solid var(--tone-accent);
+    outline-offset: 4px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -119,6 +194,34 @@
   /* Film grain over the whole page. */
   .grain {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /*
+   * Highlighter: a marker stroke sweeps behind the words once the heading is
+   * revealed. Colours follow the section tone.
+   */
+  .marker,
+  .with-markers em {
+    font-style: normal;
+    padding-inline: 0.12em;
+    margin-inline: -0.06em;
+    color: var(--tone-on-marker);
+    background-image: linear-gradient(var(--tone-marker), var(--tone-marker));
+    background-repeat: no-repeat;
+    background-position: 0 88%;
+    background-size: 0% 82%;
+    box-decoration-break: clone;
+    transition:
+      background-size 0.8s cubic-bezier(0.7, 0, 0.2, 1) 0.35s,
+      color 0.3s ease 0.45s;
+  }
+
+  .reveal:not([data-visible="true"]) :is(.marker, .with-markers em) {
+    color: inherit;
+  }
+
+  .reveal[data-visible="true"] :is(.marker, .with-markers em) {
+    background-size: 100% 82%;
   }
 
   /* BlurText: segments rise from a blur once the element is visible. */
@@ -172,6 +275,13 @@
       opacity: 1;
       filter: none;
       transform: none;
+      transition: none;
+    }
+
+    .marker,
+    .with-markers em {
+      background-size: 100% 82%;
+      color: var(--tone-on-marker);
       transition: none;
     }
   }
