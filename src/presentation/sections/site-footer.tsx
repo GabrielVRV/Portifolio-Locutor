@@ -1,3 +1,5 @@
+import { NAV_ITEMS } from "./site-header";
+
 interface SiteFooterProps {
   readonly name: string;
 }
@@ -6,22 +8,38 @@ const DEVELOPER = { name: "GabrielVRV", url: "https://github.com/GabrielVRV" };
 
 export function SiteFooter({ name }: SiteFooterProps) {
   return (
-    <footer className="border-t border-line px-4 py-8 text-sm text-muted sm:px-6">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 sm:flex-row">
-        <p>
-          © {new Date().getFullYear()} {name}. Todos os direitos reservados.
-        </p>
-        <p>
-          Desenvolvido por{" "}
-          <a
-            href={DEVELOPER.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold text-foreground underline-offset-4 hover:text-signal hover:underline"
-          >
-            {DEVELOPER.name}
-          </a>
-        </p>
+    <footer className="border-t border-line px-4 pt-16 pb-28 sm:px-6 lg:pb-24">
+      <div className="mx-auto flex max-w-7xl flex-col gap-10">
+        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+          <p className="font-serif text-5xl italic sm:text-6xl">{name}</p>
+          <nav aria-label="Rodapé">
+            <ul className="flex flex-wrap gap-x-8 gap-y-3 font-mono text-[11px] tracking-[0.2em] text-muted uppercase">
+              {NAV_ITEMS.map((item) => (
+                <li key={item.href}>
+                  <a href={item.href} className="transition-colors hover:text-gold">
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+        <div className="flex flex-col justify-between gap-2 border-t border-line pt-6 text-sm text-muted sm:flex-row">
+          <p>
+            © {new Date().getFullYear()} {name}. Todos os direitos reservados.
+          </p>
+          <p>
+            Desenvolvido por{" "}
+            <a
+              href={DEVELOPER.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-foreground underline-offset-4 hover:text-gold hover:underline"
+            >
+              {DEVELOPER.name}
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
