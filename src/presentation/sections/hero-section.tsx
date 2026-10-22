@@ -1,11 +1,11 @@
-import Image from "next/image";
-import { FaArrowDown, FaMicrophoneLines } from "react-icons/fa6";
+import { FaMicrophoneLines } from "react-icons/fa6";
 
 import { BlurText } from "@/presentation/components/blur-text";
 import { ButtonLink } from "@/presentation/components/button-link";
 import { Magnetic } from "@/presentation/components/effects/magnetic";
 import { Reveal } from "@/presentation/components/effects/reveal";
 import { OnAirBadge } from "@/presentation/components/on-air-badge";
+import { Portrait } from "@/presentation/components/portrait";
 import { RotatingBadge } from "@/presentation/components/rotating-badge";
 import { SocialIcon } from "@/presentation/components/social-icon";
 import { Waveform } from "@/presentation/components/waveform";
@@ -20,19 +20,24 @@ export function HeroSection({ announcer }: HeroSectionProps) {
   const lastName = rest.join(" ");
 
   return (
-    <section id="inicio" aria-labelledby="hero-title" className="relative isolate overflow-hidden">
+    <section
+      id="inicio"
+      aria-labelledby="hero-title"
+      className="tone-brand relative isolate overflow-x-clip"
+    >
+      {/* Soft halftone texture */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[radial-gradient(50%_60%_at_75%_40%,rgb(233_185_73/0.13),transparent),radial-gradient(40%_40%_at_10%_90%,rgb(184_134_43/0.08),transparent)]"
+        className="absolute inset-0 -z-10 bg-[radial-gradient(rgb(11_11_11/0.08)_1.2px,transparent_1.2px)] mask-[linear-gradient(to_bottom,#000,transparent_80%)] bg-size-[18px_18px]"
       />
 
-      <div className="mx-auto grid min-h-svh max-w-7xl items-center gap-16 px-4 pt-32 pb-24 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8">
+      <div className="mx-auto grid min-h-svh max-w-7xl items-center gap-12 px-4 pt-28 pb-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8 lg:px-8 lg:pt-32">
         <div>
           <OnAirBadge>{announcer.headline}</OnAirBadge>
 
           <h1
             id="hero-title"
-            className="mt-8 font-serif text-[clamp(4.5rem,13vw,10.5rem)] leading-[0.82] tracking-tight"
+            className="mt-6 font-display text-[clamp(4.5rem,13vw,10.5rem)] leading-[0.86] uppercase"
           >
             <span className="sr-only">{announcer.name}</span>
             <BlurText decorative as="span" by="letters" text={firstName} className="block" />
@@ -42,7 +47,7 @@ export function HeroSection({ announcer }: HeroSectionProps) {
               by="letters"
               text={lastName}
               delay={300}
-              className="block pl-[0.6em] italic [&_.blur-text-segment]:text-gold-gradient [&_.blur-text-segment]:pr-[0.04em]"
+              className="block"
             />
           </h1>
 
@@ -50,13 +55,13 @@ export function HeroSection({ announcer }: HeroSectionProps) {
             text={announcer.tagline}
             delay={700}
             stagger={50}
-            className="mt-8 max-w-md text-lg text-muted sm:text-xl"
+            className="mt-6 max-w-md text-xl font-semibold text-muted sm:text-2xl"
           />
 
           <Reveal delay={900} className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Magnetic>
               <ButtonLink href={announcer.whatsapp.href} external size="lg">
-                <SocialIcon network="whatsapp" className="size-4" />
+                <SocialIcon network="whatsapp" className="size-5" />
                 Pedir orçamento
               </ButtonLink>
             </Magnetic>
@@ -64,61 +69,58 @@ export function HeroSection({ announcer }: HeroSectionProps) {
               Conheça o trabalho
             </ButtonLink>
           </Reveal>
+
+          <Reveal delay={1100} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <a
+              href={announcer.whatsapp.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-display text-2xl tracking-wide hover:underline"
+            >
+              {announcer.whatsapp.display}
+            </a>
+            <span aria-hidden="true" className="h-6 w-px bg-ink/30" />
+            <ul className="flex gap-2">
+              {announcer.socialLinks.map((link) => (
+                <li key={link.network}>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${link.label} de ${announcer.name}`}
+                    className="grid size-11 place-items-center rounded-full border-2 border-ink transition-colors hover:bg-ink hover:text-brand"
+                  >
+                    <SocialIcon network={link.network} className="size-4" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
         </div>
 
-        <Reveal delay={400} className="relative mx-auto w-full max-w-sm lg:max-w-md">
-          <figure className="relative aspect-[4/5]">
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 translate-x-4 translate-y-4 rounded-t-full rounded-b-[2rem] border border-gold/40"
-            />
-            <div className="group absolute inset-0 overflow-hidden rounded-t-full rounded-b-[2rem] border border-line bg-surface">
-              <Image
-                src={announcer.photo.src}
-                alt={announcer.photo.alt}
-                fill
-                sizes="(min-width: 1024px) 28rem, 24rem"
-                loading="eager"
-                fetchPriority="high"
-                className="object-cover object-[50%_25%] saturate-[0.85] sepia-[0.15] transition duration-700 group-hover:scale-105 group-hover:saturate-100 group-hover:sepia-0"
-              />
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-linear-to-t from-background via-background/20 to-transparent"
-              />
-              <figcaption className="absolute inset-x-6 bottom-6 flex items-end justify-between gap-4">
-                <span>
-                  <span className="block font-mono text-[10px] tracking-[0.25em] text-gold uppercase">
-                    Experiência
-                  </span>
-                  <span className="mt-1 block font-serif text-3xl leading-none">
-                    {announcer.experienceLabel}
-                  </span>
-                </span>
-                <Waveform />
-              </figcaption>
+        <Reveal delay={300} className="mx-auto w-full max-w-sm sm:max-w-md lg:max-w-lg">
+          <Portrait portrait={announcer.portrait}>
+            <div className="absolute top-[30%] -left-2 rounded-2xl bg-ink px-4 py-3 text-paper shadow-2xl shadow-ink/30 [--float-rotate:-4deg] motion-safe:animate-float sm:-left-8">
+              <span className="block text-[10px] font-extrabold tracking-[0.2em] text-brand uppercase">
+                Experiência
+              </span>
+              <span className="mt-1 flex items-center gap-3">
+                <span className="font-display text-2xl uppercase">{announcer.experienceLabel}</span>
+                <Waveform className="h-6 text-brand" />
+              </span>
             </div>
 
             <RotatingBadge
-              text={`${announcer.headline} • ${announcer.experienceLabel} • `}
-              className="absolute top-6 -left-3 size-24 text-gold sm:top-10 sm:-left-14 sm:size-32"
+              text={`${announcer.headline} • ${announcer.name} • `}
+              className="absolute top-0 -left-2 size-24 text-ink sm:-left-4 sm:size-32"
             >
-              <span className="grid size-12 place-items-center rounded-full bg-linear-to-br from-gold-light to-gold-deep text-background">
+              <span className="grid size-12 place-items-center rounded-full bg-ink text-brand">
                 <FaMicrophoneLines aria-hidden="true" className="size-5" />
               </span>
             </RotatingBadge>
-          </figure>
+          </Portrait>
         </Reveal>
       </div>
-
-      <a
-        href="#sobre"
-        aria-label="Rolar para a próxima seção"
-        className="absolute bottom-8 left-4 hidden items-center gap-3 font-mono text-[10px] tracking-[0.25em] text-muted uppercase transition-colors hover:text-gold sm:left-6 sm:flex lg:left-8"
-      >
-        <FaArrowDown aria-hidden="true" className="size-3 motion-safe:animate-bounce-soft" />
-        Role para ouvir a história
-      </a>
     </section>
   );
 }

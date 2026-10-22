@@ -21,33 +21,39 @@ export function ProcessSection() {
     <section
       id="como-funciona"
       aria-labelledby="process-title"
-      className="scroll-mt-24 border-t border-line py-28 sm:py-40"
+      className="tone-brand scroll-mt-24 py-24 sm:py-32"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading id="process-title" index="04" label="Como funciona">
-          Simples como <em>apertar o play</em>.
+        <SectionHeading id="process-title" index="04" label="Como funciona" align="center">
+          Simples como <em>apertar o play</em>
         </SectionHeading>
 
-        <Reveal as="ol" className="group relative mt-20 grid gap-12 md:grid-cols-3 md:gap-8">
-          {/* Signal line drawn across the steps as they come into view */}
-          <span
-            aria-hidden="true"
-            className="absolute top-[calc(5.5rem+5px)] right-0 left-0 hidden h-px origin-left scale-x-0 bg-linear-to-r from-gold via-gold/40 to-transparent transition-transform delay-300 duration-[1600ms] ease-out group-data-[visible=true]:scale-x-100 md:block"
-          />
+        {/* Steps as speech bubbles, stepping down like a conversation */}
+        <ol className="mt-16 grid gap-10 md:grid-cols-3 md:gap-6 md:pb-20">
           {STEPS.map((step, index) => (
-            <li key={step.title} className="relative">
-              <span className="block text-gold-gradient font-serif text-7xl leading-none italic">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <span
-                aria-hidden="true"
-                className="relative mt-4 block size-3 rounded-full border-2 border-gold bg-background"
-              />
-              <h3 className="mt-8 font-serif text-3xl">{step.title}</h3>
-              <p className="mt-3 max-w-xs text-muted">{step.description}</p>
-            </li>
+            <Reveal
+              as="li"
+              key={step.title}
+              delay={index * 150}
+              className={index === 1 ? "md:translate-y-10" : index === 2 ? "md:translate-y-20" : ""}
+            >
+              <div className="tone-ink relative rounded-[2rem] p-8 shadow-[0_24px_50px_-24px] shadow-ink/60">
+                <span className="font-display text-7xl leading-none text-brand">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-6 font-display text-3xl uppercase">{step.title}</h3>
+                <p className="mt-3 text-muted">{step.description}</p>
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 40 30"
+                  className="absolute -bottom-6 left-10 h-7 w-9 text-ink"
+                >
+                  <path d="M0 0h40L6 30Z" fill="currentColor" />
+                </svg>
+              </div>
+            </Reveal>
           ))}
-        </Reveal>
+        </ol>
       </div>
     </section>
   );

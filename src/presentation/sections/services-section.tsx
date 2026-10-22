@@ -17,12 +17,12 @@ export function ServicesSection({ announcer }: ServicesSectionProps) {
     <section
       id="servicos"
       aria-labelledby="services-title"
-      className="scroll-mt-24 border-t border-line py-28 sm:py-40"
+      className="tone-ink scroll-mt-24 py-24 sm:py-32"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading id="services-title" index="02" label="Serviços">
-            Sua mensagem com a <em>voz certa</em>.
+            Sua mensagem com a <em>voz certa</em>
           </SectionHeading>
           <Reveal as="p" className="max-w-sm text-lg text-muted">
             Escolha o tipo de locução e peça o orçamento direto no WhatsApp, já com o serviço
@@ -30,9 +30,10 @@ export function ServicesSection({ announcer }: ServicesSectionProps) {
           </Reveal>
         </div>
 
-        <ul className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Middle column sits lower, so the grid reads as a wave, not a table */}
+        <ul className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:pb-16 lg:[&>li:nth-child(3n+2)]:translate-y-16">
           {announcer.services.map((service, index) => (
-            <Reveal as="li" key={service.name} delay={index * 80}>
+            <Reveal as="li" key={service.name} delay={(index % 3) * 100}>
               <SpotlightCard className="h-full">
                 <a
                   href={service.quoteHref}
@@ -41,16 +42,18 @@ export function ServicesSection({ announcer }: ServicesSectionProps) {
                   className="flex h-full flex-col p-8"
                 >
                   <span className="flex items-center justify-between">
-                    <span className="grid size-14 place-items-center rounded-full border border-gold/40 text-gold transition-colors duration-500 group-hover:bg-gold group-hover:text-background">
-                      <ServiceIcon name={service.name} className="size-5" />
+                    <span className="grid size-14 place-items-center rounded-full bg-brand text-ink transition-transform duration-500 group-hover:-rotate-12">
+                      <ServiceIcon name={service.name} className="size-6" />
                     </span>
-                    <span className="font-mono text-xs text-muted">
+                    <span className="font-display text-3xl text-paper/15">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                   </span>
-                  <span className="mt-12 font-serif text-4xl leading-none">{service.name}</span>
+                  <span className="mt-10 font-display text-4xl leading-none uppercase">
+                    {service.name}
+                  </span>
                   <span className="mt-4 flex-1 text-muted">{service.description}</span>
-                  <span className="mt-8 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] text-gold uppercase">
+                  <span className="mt-8 inline-flex items-center gap-2 text-xs font-extrabold tracking-[0.18em] text-brand uppercase">
                     Pedir orçamento
                     <FaArrowRight
                       aria-hidden="true"
@@ -62,20 +65,20 @@ export function ServicesSection({ announcer }: ServicesSectionProps) {
             </Reveal>
           ))}
 
-          <Reveal as="li" delay={announcer.services.length * 80}>
+          <Reveal as="li" delay={(announcer.services.length % 3) * 100}>
             <a
               href={announcer.whatsapp.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex h-full min-h-72 flex-col justify-between rounded-3xl bg-linear-to-br from-gold-light via-gold to-gold-deep p-8 text-background transition-transform duration-500 hover:-translate-y-1"
+              className="tone-brand group flex h-full min-h-72 flex-col justify-between rounded-[2rem] p-8 transition-transform duration-500 hover:-translate-y-1 hover:-rotate-1"
             >
-              <span className="font-mono text-[11px] tracking-[0.2em] uppercase">
+              <span className="text-xs font-extrabold tracking-[0.18em] uppercase">
                 Outro projeto?
               </span>
-              <span className="font-serif text-4xl leading-tight">
-                Precisa de algo diferente? <em>Vamos conversar.</em>
+              <span className="font-display text-4xl leading-none uppercase">
+                Precisa de algo diferente? Vamos conversar.
               </span>
-              <span className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] uppercase">
+              <span className="inline-flex items-center gap-2 text-xs font-extrabold tracking-[0.18em] uppercase">
                 Falar no WhatsApp
                 <FaArrowRight
                   aria-hidden="true"

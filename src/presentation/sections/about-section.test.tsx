@@ -10,7 +10,7 @@ describe("AboutSection", () => {
     render(<AboutSection announcer={announcer} />);
 
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "Uma voz que a cidade reconhece.",
+      "Uma voz que a cidade reconhece",
     );
     expect(screen.getByText("Bio")).toBeInTheDocument();
   });
