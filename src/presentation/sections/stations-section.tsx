@@ -1,39 +1,33 @@
-import { BlurText } from "@/presentation/components/blur-text";
+import { Reveal } from "@/presentation/components/effects/reveal";
+import { SectionHeading } from "@/presentation/components/section-heading";
 import type { AnnouncerViewModel } from "@/presentation/view-models/announcer-view-model";
 
 import { StationsCarousel } from "./stations-carousel";
 
 interface StationsSectionProps {
-  readonly announcer: Pick<AnnouncerViewModel, "stations" | "photo" | "experienceLabel">;
+  readonly announcer: Pick<AnnouncerViewModel, "stations" | "experienceLabel">;
 }
 
 export function StationsSection({ announcer }: StationsSectionProps) {
   if (announcer.stations.length === 0) return null;
 
   return (
-    <section id="radios" aria-labelledby="stations-title" className="scroll-mt-24 py-24 sm:py-32">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:px-8">
-        <div>
-          <p className="text-xs font-semibold tracking-[0.3em] text-signal uppercase">Trajetória</p>
-          <BlurText
-            as="h2"
-            id="stations-title"
-            text="Passagens pelas rádios"
-            stagger={90}
-            className="mt-4 font-display text-4xl leading-none font-black tracking-tight uppercase sm:text-6xl"
-          />
-        </div>
-        <p className="max-w-sm text-lg text-muted">
+    <section
+      id="trajetoria"
+      aria-labelledby="stations-title"
+      className="scroll-mt-24 border-t border-line py-28 sm:py-40"
+    >
+      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:px-8">
+        <SectionHeading id="stations-title" index="03" label="Trajetória">
+          Passagens pelas <em>rádios</em>.
+        </SectionHeading>
+        <Reveal as="p" className="max-w-sm text-lg text-muted">
           {announcer.experienceLabel.replace("+", "Mais de ")}, levando voz, credibilidade e energia
           para o dial.
-        </p>
+        </Reveal>
       </div>
 
-      <StationsCarousel
-        stations={announcer.stations}
-        photo={announcer.photo}
-        photoCaption={announcer.experienceLabel}
-      />
+      <StationsCarousel stations={announcer.stations} />
 
       <ul className="sr-only">
         {announcer.stations.map((station) => (

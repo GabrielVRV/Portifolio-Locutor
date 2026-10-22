@@ -5,16 +5,41 @@ import { announcerViewModelFixture } from "@/presentation/testing/announcer-view
 import { buildCarouselItems } from "./stations-carousel";
 
 describe("buildCarouselItems", () => {
-  const items = buildCarouselItems(announcerViewModelFixture.stations);
+  it("keeps only stations, in order", () => {
+    const items = buildCarouselItems(announcerViewModelFixture.stations);
 
-  it("inserts a photo tile after every two stations", () => {
-    expect(items.map((item) => item.kind)).toEqual(["station", "station", "photo", "station"]);
+    expect(items.map((item) => item.station.name)).toEqual([
+      "Massa FM",
+      "Band FM",
+      "Rádio Difusora",
+    ]);
   });
 
   it("cycles card themes so neighbours never look alike", () => {
-    const themes = items.flatMap((item) => (item.kind === "station" ? [item.theme] : []));
+    const stations = [...announcerViewModelFixture.stations, ...announcerViewModelFixture.stations];
 
-    expect(themes).toEqual(["signal", "dark", "light"]);
+    expect(buildCarouselItems(stations).map((item) => item.theme)).toEqual([
+      "gold",
+      "dark",
+      "cream",
+      "gold",
+      "dark",
+      "cream",
+    ]);
+  });
+
+  it("avoids matching themes where the loop wraps around", () => {
+    const stations = [
+      ...announcerViewModelFixture.stations,
+      announcerViewModelFixture.stations[0]!,
+    ];
+
+    expect(buildCarouselItems(stations).map((item) => item.theme)).toEqual([
+      "gold",
+      "dark",
+      "cream",
+      "dark",
+    ]);
   });
 
   it("returns nothing without stations", () => {

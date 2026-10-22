@@ -20,7 +20,7 @@ describe("StationCard", () => {
     render(
       <StationCard
         station={{ name: "Band FM", current: false, period: "2010–2018" }}
-        theme="light"
+        theme="cream"
       />,
     );
 
