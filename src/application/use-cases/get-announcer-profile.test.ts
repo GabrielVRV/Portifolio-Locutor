@@ -10,6 +10,7 @@ import { GetAnnouncerProfile } from "./get-announcer-profile";
 const announcer: Announcer = createAnnouncer({
   name: "Carlos Artur",
   headline: "Locutor e radialista",
+  tagline: "Slogan",
   bio: ["Bio"],
   yearsOfExperience: 20,
   photo: { src: "/images/carlos-artur.jpg", alt: "Carlos Artur" },

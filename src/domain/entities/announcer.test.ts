@@ -8,6 +8,7 @@ import { type Announcer, createAnnouncer } from "./announcer";
 const validProps: Announcer = {
   name: "Carlos Artur",
   headline: "Locutor e radialista",
+  tagline: "Slogan",
   bio: ["Bio"],
   yearsOfExperience: 20,
   photo: { src: "/images/carlos-artur.jpg", alt: "Carlos Artur" },

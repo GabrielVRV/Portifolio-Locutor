@@ -13,6 +13,7 @@ const year = z.int().min(1900).max(2100);
 const announcerSchema = z.object({
   name: z.string(),
   headline: z.string(),
+  tagline: z.string().min(1),
   bio: z.array(z.string().min(1)).min(1),
   yearsOfExperience: z.int(),
   location: z.string().optional(),
