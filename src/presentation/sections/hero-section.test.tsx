@@ -28,12 +28,12 @@ describe("HeroSection", () => {
     expect(quote).toHaveAttribute("rel", "noopener noreferrer");
   });
 
-  it("links to the career section", () => {
+  it("invites visitors to learn more about the work", () => {
     render(<HeroSection announcer={announcer} />);
 
-    expect(screen.getByRole("link", { name: /ver trajetória/i })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /conheça o trabalho/i })).toHaveAttribute(
       "href",
-      "#radios",
+      "#sobre",
     );
   });
 });
