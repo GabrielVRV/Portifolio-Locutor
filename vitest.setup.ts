@@ -33,3 +33,24 @@ vi.stubGlobal(
       dispatchEvent: () => false,
     }) as MediaQueryList,
 );
+
+// jsdom doesn't implement media playback; emulate the state changes and events.
+function setPaused(media: HTMLMediaElement, paused: boolean) {
+  Object.defineProperty(media, "paused", { configurable: true, value: paused });
+  media.dispatchEvent(new Event(paused ? "pause" : "play"));
+}
+
+Object.defineProperty(HTMLMediaElement.prototype, "play", {
+  configurable: true,
+  value(this: HTMLMediaElement) {
+    setPaused(this, false);
+    return Promise.resolve();
+  },
+});
+
+Object.defineProperty(HTMLMediaElement.prototype, "pause", {
+  configurable: true,
+  value(this: HTMLMediaElement) {
+    setPaused(this, true);
+  },
+});
