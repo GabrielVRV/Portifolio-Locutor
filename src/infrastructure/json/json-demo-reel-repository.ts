@@ -16,6 +16,16 @@ const demoReelsSchema = z
       durationInSeconds: z.number(),
       recordedAt: z.iso.date().optional(),
       featured: z.boolean().optional(),
+      chapters: z
+        .array(
+          z.object({
+            title: z.string(),
+            category: z.enum(DEMO_REEL_CATEGORIES),
+            startInSeconds: z.number(),
+          }),
+        )
+        .optional(),
+      waveform: z.array(z.number()).optional(),
     }),
   )
   .refine((reels) => new Set(reels.map((reel) => reel.id)).size === reels.length, {
