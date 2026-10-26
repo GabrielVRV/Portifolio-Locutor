@@ -41,7 +41,14 @@ antes de chegar ao site publicado.
 **Adicionar uma gravação:**
 
 1. Coloque o áudio (de preferência `.mp3`) em `public/audio/`.
-2. Adicione um item em `content/demo-reels.json`:
+2. Gere a duração e a forma de onda (requer [ffmpeg](https://ffmpeg.org/) instalado):
+
+   ```bash
+   pnpm audio:waveform public/audio/spot-supermercado-bom-preco.mp3
+   ```
+
+3. Adicione um item em `content/demo-reels.json`, colando `durationInSeconds` e `waveform`
+   da saída do comando:
 
    ```json
    {
@@ -50,17 +57,23 @@ antes de chegar ao site publicado.
      "description": "Oferta de fim de semana",
      "category": "spot-comercial",
      "audioSrc": "/audio/spot-supermercado-bom-preco.mp3",
-     "durationInSeconds": 30,
+     "durationInSeconds": 30.4,
+     "waveform": [0.12, 0.58, 0.91],
+     "chapters": [
+       { "title": "Abertura", "category": "spot-comercial", "startInSeconds": 0 },
+       { "title": "Ofertas", "category": "spot-comercial", "startInSeconds": 8.5 }
+     ],
      "recordedAt": "2026-10-01",
-     "featured": true
+     "featured": false
    }
    ```
 
-   Categorias aceitas: `carro-de-som`, `spot-comercial`, `vinheta`, `chamada`,
-   `institucional` e `eventos`. Os campos `description`, `recordedAt` e `featured` são
-   opcionais.
+   Categorias aceitas: `apresentacao`, `noticia`, `carro-de-som`, `spot-comercial`,
+   `vinheta`, `chamada`, `institucional` e `eventos`. São opcionais: `description`,
+   `waveform`, `chapters` (marcam estilos dentro de um mesmo áudio, em ordem de início),
+   `recordedAt` e `featured` (aparece primeiro).
 
-3. Rode `pnpm test` e faça o commit (`feat(content): add supermarket spot`).
+4. Rode `pnpm test` e faça o commit (`feat(content): add supermarket spot`).
 
 ## Como rodar
 

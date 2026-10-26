@@ -14,7 +14,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "prepare": "husky"
+    "prepare": "husky",
+    "audio:waveform": "node scripts/audio-waveform.mjs"
   },
   "dependencies": {
     "next": "16.4.2",
