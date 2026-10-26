@@ -33,7 +33,8 @@ export function HeroSection({ announcer, hasDemo = false }: HeroSectionProps) {
       />
 
       <div className="mx-auto grid min-h-svh max-w-7xl items-center gap-12 px-4 pt-28 pb-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8 lg:px-8 lg:pt-32">
-        <div>
+        {/* Centred on phones, where it stacks above the portrait; left-aligned beside it */}
+        <div className="text-center lg:text-left">
           <OnAirBadge>{announcer.headline}</OnAirBadge>
 
           <h1
@@ -56,12 +57,15 @@ export function HeroSection({ announcer, hasDemo = false }: HeroSectionProps) {
             text={announcer.tagline}
             delay={700}
             stagger={50}
-            className="mt-6 max-w-md text-xl font-semibold text-muted sm:text-2xl"
+            className="mx-auto mt-6 max-w-md text-xl font-semibold text-muted sm:text-2xl lg:mx-0"
           />
 
-          <Reveal delay={900} className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Magnetic>
-              <ButtonLink href={announcer.whatsapp.href} external size="lg">
+          <Reveal
+            delay={900}
+            className="mx-auto mt-10 flex max-w-sm flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center lg:justify-start"
+          >
+            <Magnetic className="w-full sm:w-auto">
+              <ButtonLink href={announcer.whatsapp.href} external size="lg" className="w-full">
                 <SocialIcon network="whatsapp" className="size-5" />
                 Pedir orçamento
               </ButtonLink>
@@ -78,7 +82,10 @@ export function HeroSection({ announcer, hasDemo = false }: HeroSectionProps) {
             )}
           </Reveal>
 
-          <Reveal delay={1100} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Reveal
+            delay={1100}
+            className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 lg:justify-start"
+          >
             <a
               href={announcer.whatsapp.href}
               target="_blank"
