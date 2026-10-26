@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "id": "demo-apresentacao",
+    "title": "Demo de apresentação",
+    "description": "Apresentação com exemplos de notícia, ofertas de varejo e chamada de evento, cada um com a sua trilha.",
+    "category": "apresentacao",
+    "audioSrc": "/audio/demo-carlos-artur.mp3",
+    "durationInSeconds": 74.76,
+    "featured": true,
+    "chapters": [
+      {
+        "title": "Apresentação",
+        "category": "apresentacao",
+        "startInSeconds": 0
+      },
+      {
+        "title": "Notícia",
+        "category": "noticia",
+        "startInSeconds": 15
+      },
+      {
+        "title": "Ofertas de varejo",
+        "category": "spot-comercial",
+        "startInSeconds": 30.1
+      },
+      {
+        "title": "Chamada de evento",
+        "category": "eventos",
+        "startInSeconds": 47.2
+      }
+    ],
+    "waveform": [
+      0.14, 0.12, 0.53, 0.72, 0.69, 0.77, 0.77, 0.66, 0.59, 0.57, 0.65, 0.65, 0.71, 0.58, 0.54,
+      0.76, 0.67, 0.7, 0.55, 0.3, 0.92, 0.86, 0.74, 0.79, 0.91, 0.75, 0.83, 0.82, 0.6, 0.81, 0.85,
+      0.7, 0.88, 0.62, 0.81, 0.68, 0.86, 0.65, 0.51, 0.77, 0.76, 0.84, 0.91, 0.79, 0.79, 0.75, 0.89,
+      0.87, 0.8, 0.88, 0.79, 0.89, 0.79, 0.78, 0.9, 0.74, 0.83, 0.73, 0.85, 0.7, 0.73, 0.81, 0.94,
+      0.62, 0.79, 0.8, 0.83, 0.73, 0.82, 0.76, 0.73, 0.78, 0.68, 0.84, 0.91, 0.88, 0.71, 0.47, 0.5,
+      0.67, 0.88, 0.92, 1, 0.87, 0.81, 0.76, 0.68, 0.2, 0.14, 0.09, 0.06, 0.06, 0.06, 0.06, 0.06,
+      0.06
+    ]
+  }
+]
