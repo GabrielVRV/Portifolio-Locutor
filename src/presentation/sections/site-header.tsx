@@ -4,6 +4,7 @@ import { SocialIcon } from "@/presentation/components/social-icon";
 import type { AnnouncerViewModel } from "@/presentation/view-models/announcer-view-model";
 
 export const NAV_ITEMS = [
+  { label: "Ouça", href: "#ouca" },
   { label: "Sobre", href: "#sobre" },
   { label: "Serviços", href: "#servicos" },
   { label: "Trajetória", href: "#trajetoria" },

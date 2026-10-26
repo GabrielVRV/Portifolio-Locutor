@@ -22,7 +22,7 @@ export function AboutSection({ announcer }: AboutSectionProps) {
     >
       <div className="mx-auto grid max-w-7xl items-center gap-16 px-4 sm:px-6 lg:grid-cols-2 lg:gap-24 lg:px-8">
         <div>
-          <SectionHeading id="about-title" index="01" label="Sobre">
+          <SectionHeading id="about-title" index="02" label="Sobre">
             Uma voz que a cidade <em>reconhece</em>
           </SectionHeading>
           <Reveal className="mt-8 max-w-xl space-y-5 text-lg leading-relaxed text-muted">

@@ -18,7 +18,7 @@ export function StationsSection({ announcer }: StationsSectionProps) {
       className="tone-paper scroll-mt-24 py-24 sm:py-32"
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:px-8">
-        <SectionHeading id="stations-title" index="03" label="Trajetória">
+        <SectionHeading id="stations-title" index="04" label="Trajetória">
           Passagens pelas <em>rádios</em>
         </SectionHeading>
         <Reveal as="p" className="max-w-sm text-lg text-muted">

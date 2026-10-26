@@ -24,7 +24,7 @@ export function ProcessSection() {
       className="tone-brand scroll-mt-24 py-24 sm:py-32"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading id="process-title" index="04" label="Como funciona" align="center">
+        <SectionHeading id="process-title" index="05" label="Como funciona" align="center">
           Simples como <em>apertar o play</em>
         </SectionHeading>
 

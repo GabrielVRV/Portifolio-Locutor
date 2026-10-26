@@ -27,7 +27,7 @@ export function ContactSection({ announcer }: ContactSectionProps) {
 
       <p className="flex items-center justify-center gap-2 text-xs font-extrabold tracking-[0.25em] text-muted uppercase">
         <Bolt className="h-4 w-2 text-brand" />
-        <ScrambleText text="05 — Contato" />
+        <ScrambleText text="06 — Contato" />
       </p>
       <h2
         id="contact-title"

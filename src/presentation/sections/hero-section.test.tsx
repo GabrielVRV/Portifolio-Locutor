@@ -38,6 +38,12 @@ describe("HeroSection", () => {
     expect(screen.getByRole("link", { name: "Instagram de Carlos Artur" })).toBeInTheDocument();
   });
 
+  it("points the secondary action to the demo when there is one", () => {
+    render(<HeroSection announcer={announcer} hasDemo />);
+
+    expect(screen.getByRole("link", { name: /ouvir a demo/i })).toHaveAttribute("href", "#ouca");
+  });
+
   it("invites visitors to learn more about the work", () => {
     render(<HeroSection announcer={announcer} />);
 

@@ -21,7 +21,7 @@ export function ServicesSection({ announcer }: ServicesSectionProps) {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeading id="services-title" index="02" label="Serviços">
+          <SectionHeading id="services-title" index="03" label="Serviços">
             Sua mensagem com a <em>voz certa</em>
           </SectionHeading>
           <Reveal as="p" className="max-w-sm text-lg text-muted">

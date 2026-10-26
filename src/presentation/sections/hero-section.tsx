@@ -1,4 +1,4 @@
-import { FaMicrophoneLines } from "react-icons/fa6";
+import { FaMicrophoneLines, FaPlay } from "react-icons/fa6";
 
 import { BlurText } from "@/presentation/components/blur-text";
 import { ButtonLink } from "@/presentation/components/button-link";
@@ -12,9 +12,11 @@ import type { AnnouncerViewModel } from "@/presentation/view-models/announcer-vi
 
 interface HeroSectionProps {
   readonly announcer: AnnouncerViewModel;
+  /** Whether there is a demo to listen to; the secondary call to action points to it. */
+  readonly hasDemo?: boolean;
 }
 
-export function HeroSection({ announcer }: HeroSectionProps) {
+export function HeroSection({ announcer, hasDemo = false }: HeroSectionProps) {
   const [firstName = "", ...rest] = announcer.name.split(" ");
   const lastName = rest.join(" ");
 
@@ -64,9 +66,16 @@ export function HeroSection({ announcer }: HeroSectionProps) {
                 Pedir orçamento
               </ButtonLink>
             </Magnetic>
-            <ButtonLink href="#sobre" variant="ghost" size="lg">
-              Conheça o trabalho
-            </ButtonLink>
+            {hasDemo ? (
+              <ButtonLink href="#ouca" variant="ghost" size="lg">
+                <FaPlay aria-hidden="true" className="size-3.5" />
+                Ouvir a demo
+              </ButtonLink>
+            ) : (
+              <ButtonLink href="#sobre" variant="ghost" size="lg">
+                Conheça o trabalho
+              </ButtonLink>
+            )}
           </Reveal>
 
           <Reveal delay={1100} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
