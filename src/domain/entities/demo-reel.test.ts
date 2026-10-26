@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { DomainValidationError } from "@/domain/errors/domain-validation-error";
 
-import { type DemoReelProps, createDemoReel, sortForShowcase } from "./demo-reel";
+import { type DemoReelProps, chapterIndexAt, createDemoReel, sortForShowcase } from "./demo-reel";
 
 const props = (overrides: Partial<DemoReelProps> = {}): DemoReelProps => ({
   id: "reel-1",
@@ -14,8 +14,17 @@ const props = (overrides: Partial<DemoReelProps> = {}): DemoReelProps => ({
 });
 
 describe("createDemoReel", () => {
-  it("defaults featured to false", () => {
-    expect(createDemoReel(props()).featured).toBe(false);
+  it("defaults to not featured, without chapters or waveform", () => {
+    expect(createDemoReel(props())).toMatchObject({ featured: false, chapters: [], waveform: [] });
+  });
+
+  it("accepts chapters in playback order", () => {
+    const chapters = [
+      { title: "Apresentação", category: "apresentacao", startInSeconds: 0 },
+      { title: "Notícia", category: "noticia", startInSeconds: 15 },
+    ] as const;
+
+    expect(createDemoReel(props({ chapters })).chapters).toEqual(chapters);
   });
 
   it.each([
@@ -23,7 +32,22 @@ describe("createDemoReel", () => {
     ["blank title", { title: "" }],
     ["zero duration", { durationInSeconds: 0 }],
     ["NaN duration", { durationInSeconds: Number.NaN }],
-  ])("rejects %s", (_, overrides) => {
+    [
+      "chapter past the end",
+      { chapters: [{ title: "Fim", category: "eventos", startInSeconds: 30 }] },
+    ],
+    [
+      "chapters out of order",
+      {
+        chapters: [
+          { title: "B", category: "noticia", startInSeconds: 10 },
+          { title: "A", category: "apresentacao", startInSeconds: 5 },
+        ],
+      },
+    ],
+    ["untitled chapter", { chapters: [{ title: " ", category: "noticia", startInSeconds: 0 }] }],
+    ["waveform above 1", { waveform: [0.2, 1.4] }],
+  ] as const)("rejects %s", (_, overrides) => {
     expect(() => createDemoReel(props(overrides))).toThrow(DomainValidationError);
   });
 });
@@ -43,5 +67,26 @@ describe("sortForShowcase", () => {
       "old",
       "undated",
     ]);
+  });
+});
+
+describe("chapterIndexAt", () => {
+  const reel = createDemoReel(
+    props({
+      chapters: [
+        { title: "Notícia", category: "noticia", startInSeconds: 2 },
+        { title: "Ofertas", category: "spot-comercial", startInSeconds: 15 },
+      ],
+    }),
+  );
+
+  it.each([
+    [0, -1],
+    [2, 0],
+    [14.9, 0],
+    [15, 1],
+    [29, 1],
+  ])("at %ss is chapter %i", (seconds, index) => {
+    expect(chapterIndexAt(reel, seconds)).toBe(index);
   });
 });
