@@ -87,6 +87,6 @@ describe("chapterIndexAt", () => {
     [15, 1],
     [29, 1],
   ])("at %ss is chapter %i", (seconds, index) => {
-    expect(chapterIndexAt(reel, seconds)).toBe(index);
+    expect(chapterIndexAt(reel.chapters, seconds)).toBe(index);
   });
 });

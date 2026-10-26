@@ -94,9 +94,12 @@ export function createDemoReel(props: DemoReelProps): DemoReel {
  * Index of the chapter playing at `seconds`, or -1 before the first chapter
  * (or when the reel has none).
  */
-export function chapterIndexAt(reel: Pick<DemoReel, "chapters">, seconds: number): number {
+export function chapterIndexAt(
+  chapters: readonly Pick<DemoReelChapter, "startInSeconds">[],
+  seconds: number,
+): number {
   let current = -1;
-  reel.chapters.forEach((chapter, index) => {
+  chapters.forEach((chapter, index) => {
     if (seconds >= chapter.startInSeconds) current = index;
   });
   return current;
