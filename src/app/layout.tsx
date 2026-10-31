@@ -19,6 +19,9 @@ const anton = Anton({
   weight: "400",
 });
 
+/** Public token that proves ownership of the site to Google Search Console. */
+const GOOGLE_SITE_VERIFICATION = "uTJk0qud0dG4KlkWdgdVeqFKrqpUpdfmGjK4F-_fvtk";
+
 export async function generateMetadata(): Promise<Metadata> {
   const { name, seo } = await getAnnouncerProfile.execute();
 
@@ -27,6 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: seo.title,
     description: seo.description,
     alternates: { canonical: "/" },
+    verification: { google: GOOGLE_SITE_VERIFICATION },
     openGraph: {
       title: seo.title,
       description: seo.description,
