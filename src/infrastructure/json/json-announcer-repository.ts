@@ -16,6 +16,7 @@ const announcerSchema = z.object({
   name: z.string(),
   headline: z.string(),
   tagline: z.string().min(1),
+  seo: z.object({ title: z.string().min(1), description: z.string().min(1) }),
   bio: z.array(z.string().min(1)).min(1),
   services: z.array(z.object({ name: z.string().min(1), description: z.string().min(1) })),
   yearsOfExperience: z.int(),

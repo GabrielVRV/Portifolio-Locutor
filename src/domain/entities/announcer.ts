@@ -11,12 +11,21 @@ export interface Photo {
 }
 
 /**
+ * How the profile should read on search results and link previews.
+ */
+export interface SeoSnippet {
+  readonly title: string;
+  readonly description: string;
+}
+
+/**
  * The professional profile showcased by the portfolio.
  */
 export interface Announcer {
   readonly name: string;
   readonly headline: string;
   readonly tagline: string;
+  readonly seo: SeoSnippet;
   readonly bio: readonly string[];
   readonly services: readonly ServiceOffering[];
   readonly yearsOfExperience: number;

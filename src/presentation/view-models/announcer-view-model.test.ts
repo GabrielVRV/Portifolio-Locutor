@@ -11,6 +11,7 @@ const announcer = (overrides: Partial<Announcer> = {}) =>
     name: "Carlos Artur",
     headline: "Locutor e radialista",
     tagline: "A voz que faz a cidade parar para ouvir.",
+    seo: { title: "Carlos Artur | Locutor", description: "Locutor profissional." },
     bio: ["Bio"],
     services: [{ name: "Spot comercial", description: "Spots que vendem." }],
     yearsOfExperience: 20,

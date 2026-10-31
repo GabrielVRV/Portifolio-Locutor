@@ -11,6 +11,7 @@ const announcer: Announcer = createAnnouncer({
   name: "Carlos Artur",
   headline: "Locutor e radialista",
   tagline: "Slogan",
+  seo: { title: "Carlos Artur | Locutor", description: "Locutor profissional." },
   bio: ["Bio"],
   services: [{ name: "Spot comercial", description: "Spots que vendem." }],
   yearsOfExperience: 20,
