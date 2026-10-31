@@ -13,7 +13,7 @@ carro de som, institucionais), informações de carreira e canais de contato par
 - **[Vitest](https://vitest.dev/)** + **Testing Library** para testes
 - **ESLint** + **Prettier** para qualidade e padronização de código
 - **Husky**, **lint-staged** e **commitlint** para validar cada commit
-- **GitHub Actions** para CI e **[Vercel](https://vercel.com/)** para hospedagem
+- **GitHub Actions** para CI e **[Netlify](https://www.netlify.com/)** para hospedagem
 
 ## Arquitetura
 
@@ -81,8 +81,8 @@ caracteres no título e 155 na descrição.
 ## Endereço do site
 
 O endereço público alimenta o canonical, o sitemap, o `robots.txt` e a prévia de links. Na
-Vercel ele é detectado sozinho. Em outro host, ou para forçar um domínio próprio, defina
-`NEXT_PUBLIC_SITE_URL` (ex.: `https://carlosartur.com.br`) e gere um novo build.
+Netlify ele é detectado sozinho pela variável `URL`. Em outro host, ou para forçar um domínio,
+defina `NEXT_PUBLIC_SITE_URL` (ex.: `https://carlosartur.com.br`) e gere um novo build.
 
 ## Como rodar
 

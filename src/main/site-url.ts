@@ -2,15 +2,14 @@ const LOCAL_URL = "http://localhost:3000";
 
 /**
  * The site's public address, without a trailing slash. `NEXT_PUBLIC_SITE_URL`
- * wins (e.g. a custom domain on any host); on Vercel the production domain is
- * detected automatically.
+ * wins (e.g. to force a domain); otherwise the host's main address is detected
+ * from what it sets at build time: `URL` on Netlify, the production domain on
+ * Vercel.
  */
 export function resolveSiteUrl(env: NodeJS.ProcessEnv = process.env): string {
+  const vercelUrl = env.VERCEL_PROJECT_PRODUCTION_URL;
   const url =
-    env.NEXT_PUBLIC_SITE_URL ??
-    (env.VERCEL_PROJECT_PRODUCTION_URL
-      ? `https://${env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : LOCAL_URL);
+    env.NEXT_PUBLIC_SITE_URL ?? env.URL ?? (vercelUrl ? `https://${vercelUrl}` : LOCAL_URL);
 
   return url.replace(/\/+$/, "");
 }
