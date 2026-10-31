@@ -75,6 +75,15 @@ antes de chegar ao site publicado.
 
 4. Rode `pnpm test` e faça o commit (`feat(content): add supermarket spot`).
 
+**Título e descrição no Google:** edite `seo` em `content/announcer.json`. O ideal é até 60
+caracteres no título e 155 na descrição.
+
+## Endereço do site
+
+O endereço público alimenta o canonical, o sitemap, o `robots.txt` e a prévia de links. Na
+Vercel ele é detectado sozinho. Em outro host, ou para forçar um domínio próprio, defina
+`NEXT_PUBLIC_SITE_URL` (ex.: `https://carlosartur.com.br`) e gere um novo build.
+
 ## Como rodar
 
 Pré-requisitos: Node.js 24+ e pnpm 10+.

@@ -1,4 +1,5 @@
 import { getAnnouncerProfile, listDemoReels } from "@/main/container";
+import { resolveSiteUrl } from "@/main/site-url";
 import { DialProgress } from "@/presentation/components/effects/dial-progress";
 import { Marquee } from "@/presentation/components/marquee";
 import { TuningIntro } from "@/presentation/components/tuning-intro/tuning-intro";
@@ -12,6 +13,7 @@ import { ServicesSection } from "@/presentation/sections/services-section";
 import { SiteFooter } from "@/presentation/sections/site-footer";
 import { SiteHeader } from "@/presentation/sections/site-header";
 import { StationsSection } from "@/presentation/sections/stations-section";
+import { buildStructuredData, serializeJsonLd } from "@/presentation/seo/structured-data";
 import { toAnnouncerViewModel } from "@/presentation/view-models/announcer-view-model";
 import { toDemoReelViewModel } from "@/presentation/view-models/demo-reel-view-model";
 
@@ -28,6 +30,12 @@ export default async function HomePage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: serializeJsonLd(buildStructuredData(profile, resolveSiteUrl())),
+        }}
+      />
       <TuningIntro name={announcer.name} headline={announcer.headline} />
       <SiteHeader announcer={announcer} />
       <main>

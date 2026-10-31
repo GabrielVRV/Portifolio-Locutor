@@ -134,6 +134,8 @@ export function TuningIntro({ name, headline }: TuningIntroProps) {
 
   return (
     <div
+      // The intro opens the HTML; keep its scrambled text out of search snippets.
+      data-nosnippet=""
       className="tuning-intro tone-ink fixed inset-0 z-[100] flex flex-col px-6 py-6 transition-[clip-path] ease-[cubic-bezier(0.7,0,0.2,1)] sm:px-10"
       style={{
         clipPath: phase === "leaving" ? "inset(0 0 100% 0)" : "inset(0 0 0 0)",

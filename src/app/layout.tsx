@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Anton, Manrope } from "next/font/google";
 
 import { getAnnouncerProfile } from "@/main/container";
+import { resolveSiteUrl } from "@/main/site-url";
 import { GrainOverlay } from "@/presentation/components/effects/grain-overlay";
 import { INTRO_BOOT_SCRIPT } from "@/presentation/components/tuning-intro/intro-boot";
 
@@ -19,19 +20,20 @@ const anton = Anton({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const announcer = await getAnnouncerProfile.execute();
-  const title = `${announcer.name} | ${announcer.headline}`;
-  const description = announcer.bio[0];
+  const { name, seo } = await getAnnouncerProfile.execute();
 
   return {
-    title,
-    description,
+    metadataBase: new URL(resolveSiteUrl()),
+    title: seo.title,
+    description: seo.description,
+    alternates: { canonical: "/" },
     openGraph: {
-      title,
-      description,
-      type: "profile",
+      title: seo.title,
+      description: seo.description,
+      url: "/",
+      siteName: name,
+      type: "website",
       locale: "pt_BR",
-      images: [{ url: announcer.photo.src, alt: announcer.photo.alt }],
     },
   };
 }
